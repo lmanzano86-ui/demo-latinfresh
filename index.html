@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Latin Fresh Market — Tampa y Riverview, FL</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Segoe UI', system-ui, -apple-system, sans-serif; background:#f6f4ec; color:#263022; max-width:640px; margin:0 auto; }
+  .topbar { background:linear-gradient(90deg,#1b5e20,#2e7d32,#1b5e20); color:#fff; text-align:center; font-size:.78rem; font-weight:800; padding:9px 12px; letter-spacing:.5px; }
+  header { background:#fff; padding:12px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:3px solid #d63c2f; position:sticky; top:0; z-index:50; box-shadow:0 2px 12px rgba(0,0,0,.08); }
+  header img { max-width:170px; height:auto; }
+  .lang button { border:2px solid #2e7d32; background:#fff; color:#2e7d32; font-weight:800; border-radius:20px; padding:6px 14px; font-size:.82rem; cursor:pointer; }
+  .lang button.on { background:#2e7d32; color:#fff; }
+  .hero { position:relative; }
+  .hero img.bg { width:100%; height:420px; object-fit:cover; display:block; }
+  .hero .veil { position:absolute; inset:0; background:linear-gradient(180deg, rgba(20,40,20,.15) 0%, rgba(20,40,20,.55) 60%, rgba(20,40,20,.88) 100%); }
+  .hero .txt { position:absolute; left:0; right:0; bottom:0; padding:24px 20px 26px; color:#fff; }
+  .hero .badge { display:inline-block; background:#d63c2f; color:#fff; font-size:.7rem; font-weight:800; letter-spacing:1px; border-radius:20px; padding:5px 14px; margin-bottom:10px; }
+  .hero h1 { font-size:1.9rem; line-height:1.15; text-shadow:0 2px 8px rgba(0,0,0,.4); }
+  .hero h1 span { color:#a5d6a7; }
+  .hero p { font-size:.95rem; margin-top:8px; color:#e8f0e8; }
+  .hero .stars { margin-top:10px; font-weight:800; color:#ffcf4d; font-size:1rem; text-shadow:0 1px 4px rgba(0,0,0,.4); }
+  .hero .stars small { color:#e8f0e8; font-weight:400; }
+  .trust { display:flex; background:#1b5e20; color:#fff; }
+  .trust div { flex:1; text-align:center; padding:12px 4px; border-right:1px solid rgba(255,255,255,.15); }
+  .trust div:last-child { border-right:none; }
+  .trust b { display:block; font-size:1.05rem; }
+  .trust span { font-size:.68rem; opacity:.85; }
+  main { padding:26px 16px 0; }
+  section { margin-bottom:32px; }
+  .kicker { font-size:.72rem; font-weight:800; letter-spacing:2px; color:#d63c2f; margin-bottom:6px; }
+  h2 { font-size:1.45rem; color:#1b5e20; margin-bottom:6px; line-height:1.2; }
+  .sub { font-size:.9rem; color:#6b7568; margin-bottom:16px; }
+  .cta-row { display:flex; gap:10px; margin-top:14px; }
+  .cta-row a { flex:1; text-align:center; text-decoration:none; font-weight:800; border-radius:14px; padding:14px 8px; font-size:.95rem; }
+  .cta-call { background:#d63c2f; color:#fff; box-shadow:0 4px 14px rgba(214,60,47,.35); }
+  .cta-map { background:#fff; color:#1b5e20; border:2px solid #1b5e20; }
+  .loc-tabs { display:flex; gap:8px; margin-bottom:12px; background:#e8ece4; border-radius:16px; padding:6px; }
+  .loc-tabs button { flex:1; border:none; background:transparent; color:#5a6b58; font-weight:800; border-radius:12px; padding:11px; font-size:.95rem; cursor:pointer; }
+  .loc-tabs button.on { background:#fff; color:#1b5e20; box-shadow:0 2px 8px rgba(0,0,0,.12); }
+  .loc-card { background:#fff; border-radius:18px; padding:18px; box-shadow:0 4px 16px rgba(0,0,0,.07); border-left:6px solid #d63c2f; }
+  .loc-card p { font-size:.92rem; margin:7px 0; color:#4a5548; }
+  .loc-card .tel { font-size:1.25rem; font-weight:800; color:#d63c2f; text-decoration:none; }
+  .specials { display:flex; gap:12px; overflow-x:auto; padding:4px 2px 10px; scroll-snap-type:x mandatory; }
+  .sp { min-width:200px; background:#fff; border-radius:18px; overflow:hidden; scroll-snap-align:start; box-shadow:0 4px 14px rgba(0,0,0,.09); position:relative; }
+  .sp img { width:100%; height:130px; object-fit:cover; }
+  .sp .off { position:absolute; top:10px; left:10px; background:#d63c2f; color:#fff; font-size:.7rem; font-weight:800; border-radius:20px; padding:4px 12px; }
+  .sp .body { padding:12px 14px 16px; }
+  .sp h3 { font-size:1rem; color:#263022; }
+  .sp .price { font-size:1.45rem; font-weight:800; color:#1b5e20; margin-top:6px; }
+  .sp .price small { font-size:.7rem; color:#999; font-weight:400; }
+  .sp .price s { font-size:.85rem; color:#aaa; font-weight:400; margin-right:6px; }
+  .sample-note { font-size:.75rem; color:#999; margin-top:10px; text-align:center; font-style:italic; }
+  .depts { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .dept { background:#fff; border-radius:16px; padding:18px 10px; text-align:center; box-shadow:0 3px 10px rgba(0,0,0,.06); border-bottom:4px solid #a5d6a7; }
+  .dept .em { font-size:2.1rem; }
+  .dept h3 { font-size:.95rem; margin-top:8px; color:#1b5e20; }
+  .dept p { font-size:.8rem; color:#777; margin-top:4px; }
+  .spot { border-radius:20px; overflow:hidden; box-shadow:0 6px 20px rgba(0,0,0,.12); }
+  .spot img { width:100%; height:230px; object-fit:cover; display:block; }
+  .spot .body { background:linear-gradient(135deg,#1b5e20,#2e7d32); color:#fff; padding:20px; }
+  .spot h2 { color:#fff; }
+  .spot p { font-size:.93rem; margin-top:8px; line-height:1.55; color:#e6f0e6; }
+  .spot .quote { margin-top:14px; font-style:italic; background:rgba(255,255,255,.14); border-radius:12px; padding:12px 14px; font-size:.86rem; border-left:4px solid #ffcf4d; }
+  .cater { background:#fff; border-radius:20px; padding:22px 18px; box-shadow:0 4px 16px rgba(0,0,0,.07); text-align:center; border:2px dashed #2e7d32; }
+  .cater .em { font-size:2.4rem; }
+  .cater p { font-size:.9rem; color:#5a6b58; margin:10px 0 14px; line-height:1.5; }
+  .cater a { display:inline-block; background:#2e7d32; color:#fff; text-decoration:none; font-weight:800; border-radius:30px; padding:13px 30px; }
+  .join { border-radius:20px; overflow:hidden; background:linear-gradient(135deg,#b71c1c,#d63c2f); color:#fff; text-align:center; padding:28px 20px; box-shadow:0 6px 20px rgba(183,28,28,.3); }
+  .join .em { font-size:2.4rem; }
+  .join h2 { color:#fff; margin-top:8px; }
+  .join p { font-size:.9rem; margin:10px 0 16px; color:#ffe9e6; line-height:1.5; }
+  .join a { display:inline-block; background:#fff; color:#b71c1c; text-decoration:none; font-weight:800; border-radius:30px; padding:14px 34px; font-size:1rem; box-shadow:0 4px 12px rgba(0,0,0,.2); }
+  .wa-cta { background:#e7f6e9; border-radius:20px; padding:22px 18px; text-align:center; }
+  .wa-cta h2 { color:#1b5e20; }
+  .wa-cta p { font-size:.9rem; color:#5a6b58; margin:8px 0 14px; }
+  .wa-cta a { display:inline-block; background:#25d366; color:#0b3d1f; text-decoration:none; font-weight:800; border-radius:30px; padding:14px 30px; }
+  .rev { background:#fff; border-radius:16px; padding:16px; margin-bottom:10px; box-shadow:0 3px 10px rgba(0,0,0,.06); }
+  .rev .who { font-weight:800; font-size:.88rem; color:#1b5e20; }
+  .rev .st { color:#e8a013; font-size:.85rem; }
+  .rev p { font-size:.88rem; color:#555; margin-top:6px; line-height:1.5; }
+  .qrs { display:flex; gap:10px; justify-content:center; }
+  .qr { background:#fff; border-radius:16px; padding:12px 8px; text-align:center; flex:1; box-shadow:0 3px 10px rgba(0,0,0,.06); }
+  .qr img { width:100%; max-width:130px; height:auto; }
+  .qr p { font-size:.75rem; font-weight:700; color:#1b5e20; margin-top:6px; }
+  .hours { background:#fff; border-radius:18px; padding:18px; box-shadow:0 3px 10px rgba(0,0,0,.06); }
+  .hours table { width:100%; font-size:.9rem; border-collapse:collapse; }
+  .hours td { padding:8px 4px; border-bottom:1px solid #eee; color:#555; }
+  .hours td:last-child { text-align:right; font-weight:700; color:#263022; }
+  .hours tr.today td { color:#d63c2f; font-weight:800; }
+  .fab { position:fixed; bottom:18px; right:18px; width:58px; height:58px; border-radius:50%; background:#25d366; display:flex; align-items:center; justify-content:center; font-size:1.7rem; text-decoration:none; box-shadow:0 6px 18px rgba(0,0,0,.3); z-index:99; }
+  .made { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+  .made-card { background:#fff; border-radius:18px; overflow:hidden; box-shadow:0 4px 14px rgba(0,0,0,.09); }
+  .made-card .top { padding:16px 12px 12px; text-align:center; }
+  .made-card .em { font-size:2.2rem; }
+  .made-card h3 { font-size:.98rem; color:#1b5e20; margin-top:6px; }
+  .made-card .doing { display:inline-block; background:#1b5e20; color:#fff; font-size:.65rem; font-weight:800; letter-spacing:1px; border-radius:20px; padding:4px 12px; margin-top:8px; }
+  .made-card p { font-size:.8rem; color:#5a6b58; padding:0 12px 16px; text-align:center; line-height:1.45; }
+  .posters { display:flex; gap:12px; overflow-x:auto; padding:4px 2px 10px; scroll-snap-type:x mandatory; }
+  .poster { min-width:210px; border-radius:18px; padding:26px 18px; scroll-snap-align:start; text-align:center; color:#fff; box-shadow:0 4px 14px rgba(0,0,0,.12); display:flex; flex-direction:column; justify-content:center; gap:8px; min-height:280px; }
+  .poster small { font-size:.7rem; font-weight:800; letter-spacing:2px; opacity:.9; }
+  .poster b { font-size:1.5rem; line-height:1.2; }
+  .poster span { font-size:.85rem; opacity:.92; }
+  .poster .pr { font-size:2rem; font-weight:800; }
+  .p-green { background:linear-gradient(150deg,#1b5e20,#43a047); }
+  .p-red { background:linear-gradient(150deg,#b71c1c,#e53935); }
+  .p-dark { background:linear-gradient(150deg,#263022,#4a5a45); }
+  footer { background:#16241a; color:#b9c6b5; text-align:center; padding:26px 16px 90px; font-size:.82rem; }
+  footer a { color:#9ccc9f; }
+  .demo-tag { background:#fff3cd; color:#856404; text-align:center; font-size:.75rem; padding:8px; }
+</style>
+</head>
+<body>
+
+<div class="topbar" data-es="🎉 MÁS DE 30 AÑOS SIRVIENDO A LA BAHÍA DE TAMPA" data-en="🎉 OVER 30 YEARS SERVING THE TAMPA BAY AREA">🎉 MÁS DE 30 AÑOS SIRVIENDO A LA BAHÍA DE TAMPA</div>
+
+<header>
+  <img src="imgs/logo.png" alt="Latin Fresh Market">
+  <div class="lang">
+    <button id="btn-es" class="on" onclick="setLang('es')">ES</button>
+    <button id="btn-en" onclick="setLang('en')">EN</button>
+  </div>
+</header>
+
+<div class="hero">
+  <img class="bg" src="imgs/tienda.jpg" alt="Latin Fresh Market">
+  <div class="veil"></div>
+  <div class="txt">
+    <span class="badge" data-es="MERCADO · DELI · COMIDA CALIENTE" data-en="MARKET · DELI · HOT FOOD">MERCADO · DELI · COMIDA CALIENTE</span>
+    <h1 data-es="El sabor de tu tierra, <span>fresco todos los días</span>" data-en="The taste of home, <span>fresh every day</span>">El sabor de tu tierra, <span>fresco todos los días</span></h1>
+    <p data-es="Frutas, carnicería, deli y platos calientes en Tampa y Riverview." data-en="Produce, butcher shop, deli and hot plates in Tampa and Riverview.">Frutas, carnicería, deli y platos calientes en Tampa y Riverview.</p>
+    <div class="stars">★★★★★ <small>4.6 · 1,095 reseñas en Google</small></div>
+  </div>
+</div>
+
+<div class="trust">
+  <div><b>30+</b><span data-es="AÑOS" data-en="YEARS">AÑOS</span></div>
+  <div><b>2</b><span data-es="TIENDAS" data-en="STORES">TIENDAS</span></div>
+  <div><b>4.6★</b><span data-es="EN GOOGLE" data-en="ON GOOGLE">EN GOOGLE</span></div>
+  <div><b>7</b><span data-es="DÍAS / SEMANA" data-en="DAYS / WEEK">DÍAS / SEMANA</span></div>
+</div>
+
+<main>
+
+<section>
+  <div class="cta-row">
+    <a class="cta-call" id="cta-call" href="tel:+18132690119" data-es="📞 Llamar ahora" data-en="📞 Call now">📞 Llamar ahora</a>
+    <a class="cta-map" id="cta-map" href="https://www.google.com/maps/search/?api=1&query=Latin+Fresh+Market+4349+Gunn+Hwy+Tampa+FL+33618" data-es="📍 Cómo llegar" data-en="📍 Directions">📍 Cómo llegar</a>
+  </div>
+</section>
+
+<section>
+  <div class="kicker" data-es="ELIGE TU TIENDA" data-en="CHOOSE YOUR STORE">ELIGE TU TIENDA</div>
+  <h2 data-es="📍 Dos tiendas cerca de ti" data-en="📍 Two stores near you">📍 Dos tiendas cerca de ti</h2>
+  <div class="loc-tabs" style="margin-top:12px;">
+    <button id="tab-tampa" class="on" onclick="setLoc('tampa')">Tampa</button>
+    <button id="tab-riverview" onclick="setLoc('riverview')">Riverview</button>
+  </div>
+  <div class="loc-card" id="loc-tampa">
+    <p><strong data-es="Dirección:" data-en="Address:">Dirección:</strong> 4349 Gunn Hwy, Tampa, FL 33618</p>
+    <p><a class="tel" href="tel:+18132690119">(813) 269-0119</a></p>
+    <p><strong>Email:</strong> info@latinfreshmarket.com</p>
+    <p data-es="🕖 Abierto los 7 días · 7:00 AM – 9:00 PM" data-en="🕖 Open 7 days · 7:00 AM – 9:00 PM">🕖 Abierto los 7 días · 7:00 AM – 9:00 PM</p>
+  </div>
+  <div class="loc-card" id="loc-riverview" style="display:none">
+    <p><strong data-es="Dirección:" data-en="Address:">Dirección:</strong> 11357 Big Bend Rd, Riverview, FL 33579</p>
+    <p><a class="tel" href="tel:+18136720972">(813) 672-0972</a></p>
+    <p><strong>Email:</strong> riverview@latinfreshmarket.com</p>
+    <p data-es="🕖 Abierto los 7 días · 7:00 AM – 9:00 PM" data-en="🕖 Open 7 days · 7:00 AM – 9:00 PM">🕖 Abierto los 7 días · 7:00 AM – 9:00 PM</p>
+  </div>
+</section>
+
+<section>
+  <div class="kicker" data-es="AHORRA CADA SEMANA" data-en="SAVE EVERY WEEK">AHORRA CADA SEMANA</div>
+  <h2 data-es="🔥 Especiales de la semana" data-en="🔥 Weekly specials">🔥 Especiales de la semana</h2>
+  <p class="sub" data-es="Desliza para ver más ofertas" data-en="Swipe to see more deals">Desliza para ver más ofertas</p>
+  <div class="specials">
+    <div class="sp">
+      <span class="off" data-es="EL FAVORITO" data-en="THE FAVORITE">EL FAVORITO</span>
+      <img src="imgs/cubano.jpg" alt="Sándwich cubano">
+      <div class="body">
+        <h3 data-es="Sándwich cubano" data-en="Cuban sandwich">Sándwich cubano</h3>
+        <div class="price"><s>$9.99</s>$7.99 <small data-es="muestra" data-en="sample">muestra</small></div>
+      </div>
+    </div>
+    <div class="sp">
+      <span class="off" data-es="FRESCO" data-en="FRESH">FRESCO</span>
+      <img src="imgs/produce.jpg" alt="Frutas y vegetales">
+      <div class="body">
+        <h3 data-es="Plátanos maduros" data-en="Ripe plantains">Plátanos maduros</h3>
+        <div class="price">3 x $1 <small data-es="muestra" data-en="sample">muestra</small></div>
+      </div>
+    </div>
+    <div class="sp">
+      <span class="off" data-es="CARNICERÍA" data-en="BUTCHER">CARNICERÍA</span>
+      <img src="imgs/tienda.jpg" alt="Carnicería">
+      <div class="body">
+        <h3 data-es="Pernil de cerdo" data-en="Pork shoulder">Pernil de cerdo</h3>
+        <div class="price"><s>$2.49</s>$1.99<small>/lb</small> <small data-es="muestra" data-en="sample">muestra</small></div>
+      </div>
+    </div>
+    <div class="sp">
+      <span class="off" data-es="DELI" data-en="DELI">DELI</span>
+      <img src="imgs/produce.jpg" alt="Café">
+      <div class="body">
+        <h3 data-es="Café con leche grande" data-en="Large café con leche">Café con leche grande</h3>
+        <div class="price">$2.50 <small data-es="muestra" data-en="sample">muestra</small></div>
+      </div>
+    </div>
+  </div>
+  <p class="sample-note" data-es="* Precios de muestra para la demostración." data-en="* Sample prices for demonstration.">* Precios de muestra para la demostración.</p>
+</section>
+
+<section>
+  <div class="wa-cta">
+    <h2 data-es="📲 Recibe las ofertas en tu WhatsApp" data-en="📲 Get the deals on your WhatsApp">📲 Recibe las ofertas en tu WhatsApp</h2>
+    <p data-es="Únete a nuestra lista y entérate primero de los especiales de cada semana." data-en="Join our list and hear first about each week's specials.">Únete a nuestra lista y entérate primero de los especiales de cada semana.</p>
+    <a href="https://wa.me/18132690119?text=Hola%2C%20quiero%20recibir%20las%20ofertas%20semanales%20de%20Latin%20Fresh%20Market" data-es="💬 Quiero las ofertas" data-en="💬 I want the deals">💬 Quiero las ofertas</a>
+  </div>
+</section>
+
+<section>
+  <div class="kicker" data-es="HECHO AQUÍ" data-en="MADE HERE">HECHO AQUÍ</div>
+  <h2 data-es="🏠 Lo elaboramos en casa, todos los días" data-en="🏠 Made in-house, every day">🏠 Lo elaboramos en casa, todos los días</h2>
+  <p class="sub" data-es="No solo lo vendemos: lo hacemos aquí mismo" data-en="We don't just sell it: we make it right here">No solo lo vendemos: lo hacemos aquí mismo</p>
+  <div class="made">
+    <div class="made-card">
+      <div class="top"><div class="em">🥖</div><h3 data-es="Panadería" data-en="Bakery">Panadería</h3><span class="doing" data-es="HECHO AQUÍ" data-en="MADE HERE">HECHO AQUÍ</span></div>
+      <p data-es="Pan horneado diariamente en nuestra panadería, además de pasteles y repostería fresca." data-en="Bread baked daily in our bakery, plus cakes and fresh pastries.">Pan horneado diariamente en nuestra panadería, además de pasteles y repostería fresca.</p>
+    </div>
+    <div class="made-card">
+      <div class="top"><div class="em">🍲</div><h3 data-es="Comida caliente" data-en="Hot food">Comida caliente</h3><span class="doing" data-es="HECHO AQUÍ" data-en="MADE HERE">HECHO AQUÍ</span></div>
+      <p data-es="Platos latinos elaborados aquí mismo cada día: almuerzo y cena listos para llevar." data-en="Latin dishes prepared right here every day: lunch and dinner ready to go.">Platos latinos elaborados aquí mismo cada día: almuerzo y cena listos para llevar.</p>
+    </div>
+    <div class="made-card">
+      <div class="top"><div class="em">🥩</div><h3 data-es="Carnicería" data-en="Butcher shop">Carnicería</h3><span class="doing" data-es="HECHO AQUÍ" data-en="MADE HERE">HECHO AQUÍ</span></div>
+      <p data-es="Carnicería propia separada del mercado: cortes frescos preparados al gusto del cliente." data-en="Our own butcher shop, separate from the market: fresh cuts prepared to your liking.">Carnicería propia separada del mercado: cortes frescos preparados al gusto del cliente.</p>
+    </div>
+    <div class="made-card">
+      <div class="top"><div class="em">🧀</div><h3 data-es="Charcutería" data-en="Charcuterie">Charcutería</h3><span class="doing" data-es="HECHO AQUÍ" data-en="MADE HERE">HECHO AQUÍ</span></div>
+      <p data-es="Charcutería aparte del mercado: quesos, jamones y embutidos selectos." data-en="Charcuterie separate from the market: select cheeses, hams and cold cuts.">Charcutería aparte del mercado: quesos, jamones y embutidos selectos.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="kicker" data-es="TODO EN UN SOLO LUGAR" data-en="EVERYTHING IN ONE PLACE">TODO EN UN SOLO LUGAR</div>
+  <h2 data-es="🛒 Nuestros departamentos" data-en="🛒 Our departments">🛒 Nuestros departamentos</h2>
+  <p class="sub" data-es="Todo lo de tu tierra, fresco cada día" data-en="Everything from home, fresh every day">Todo lo de tu tierra, fresco cada día</p>
+  <div class="depts">
+    <div class="dept"><div class="em">🥬</div><h3 data-es="Frutas y vegetales" data-en="Produce">Frutas y vegetales</h3><p data-es="Frescos todos los días" data-en="Fresh every day">Frescos todos los días</p></div>
+    <div class="dept"><div class="em">🥩</div><h3 data-es="Carnicería" data-en="Butcher shop">Carnicería</h3><p data-es="Cortes frescos y al gusto" data-en="Fresh custom cuts">Cortes frescos y al gusto</p></div>
+    <div class="dept"><div class="em">🧀</div><h3 data-es="Charcutería" data-en="Charcuterie">Charcutería</h3><p data-es="Quesos, jamones y embutidos" data-en="Cheeses, hams & cold cuts">Quesos, jamones y embutidos</p></div>
+    <div class="dept"><div class="em">🥪</div><h3 data-es="Deli" data-en="Deli">Deli</h3><p data-es="Sándwiches y café cubano" data-en="Sandwiches & Cuban coffee">Sándwiches y café cubano</p></div>
+    <div class="dept"><div class="em">🍲</div><h3 data-es="Comida caliente" data-en="Hot food">Comida caliente</h3><p data-es="Elaborada aquí todos los días" data-en="Made here every day">Elaborada aquí todos los días</p></div>
+    <div class="dept"><div class="em">🍞</div><h3 data-es="Panadería" data-en="Bakery">Panadería</h3><p data-es="Pan horneado a diario" data-en="Baked fresh daily">Pan horneado a diario</p></div>
+    <div class="dept"><div class="em">🎂</div><h3 data-es="Pasteles" data-en="Cakes & pastries">Pasteles</h3><p data-es="Repostería fresca de la casa" data-en="Fresh house pastries">Repostería fresca de la casa</p></div>
+    <div class="dept"><div class="em">🫘</div><h3 data-es="Abarrotes latinos" data-en="Latin groceries">Abarrotes latinos</h3><p data-es="Lo que no encuentras en otro lado" data-en="What you can't find elsewhere">Lo que no encuentras en otro lado</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="spot">
+    <img src="imgs/cubano.jpg" alt="Sándwich cubano">
+    <div class="body">
+      <div class="kicker" style="color:#ffcf4d;" data-es="EL MÁS PEDIDO" data-en="MOST ORDERED">EL MÁS PEDIDO</div>
+      <h2 data-es="🥇 El cubano más famoso de Tampa" data-en="🥇 Tampa's most famous Cuban">🥇 El cubano más famoso de Tampa</h2>
+      <p data-es="Pernil asado, jamón, queso suizo, pepinillos y mostaza en pan cubano tostado a la plancha. Jugoso, crujiente y con el sabor de casa." data-en="Roast pork, ham, Swiss cheese, pickles and mustard on pressed Cuban bread. Juicy, crispy, tasting like home.">Pernil asado, jamón, queso suizo, pepinillos y mostaza en pan cubano tostado a la plancha. Jugoso, crujiente y con el sabor de casa.</p>
+      <div class="quote" data-es="“El mejor sándwich cubano de Tampa: húmedo, perfectamente tostado y lleno de sabor.” — reseña de Google" data-en="“Tampa’s best Cuban sandwich: moist, perfectly toasted and full of flavor.” — Google review">“El mejor sándwich cubano de Tampa: húmedo, perfectamente tostado y lleno de sabor.” — reseña de Google</div>
+    </div>
+  </div>
+  <p class="sample-note" data-es="Foto de muestra." data-en="Sample photo.">Foto de muestra.</p>
+</section>
+
+<section>
+  <div class="kicker" data-es="EN TIENDA Y REDES" data-en="IN STORE & SOCIAL">EN TIENDA Y REDES</div>
+  <h2 data-es="📢 Carteles y promociones" data-en="📢 Posters & promos">📢 Carteles y promociones</h2>
+  <p class="sub" data-es="Anuncios listos para imprimir y compartir" data-en="Ads ready to print and share">Anuncios listos para imprimir y compartir</p>
+  <div class="posters">
+    <div class="poster p-green">
+      <small data-es="PANADERÍA" data-en="BAKERY">PANADERÍA</small>
+      <b data-es="🥖 Pan calientito todos los días" data-en="🥖 Hot bread every day">🥖 Pan calientito todos los días</b>
+      <span data-es="Horneado aquí + pasteles frescos" data-en="Baked here + fresh pastries">Horneado aquí + pasteles frescos</span>
+    </div>
+    <div class="poster p-red">
+      <small data-es="ESPECIAL DE LA SEMANA" data-en="WEEKLY SPECIAL">ESPECIAL DE LA SEMANA</small>
+      <b data-es="Sándwich cubano" data-en="Cuban sandwich">Sándwich cubano</b>
+      <div class="pr">$7.99</div>
+      <span data-es="El famoso de Tampa" data-en="Tampa's famous one">El famoso de Tampa</span>
+    </div>
+    <div class="poster p-dark">
+      <small data-es="COCINA DE LA CASA" data-en="HOUSE KITCHEN">COCINA DE LA CASA</small>
+      <b data-es="🍲 Como en casa" data-en="🍲 Just like home">🍲 Como en casa</b>
+      <span data-es="Comida caliente elaborada aquí todos los días" data-en="Hot food made here every day">Comida caliente elaborada aquí todos los días</span>
+    </div>
+  </div>
+  <p class="sample-note" data-es="* Diseños de muestra para la demostración." data-en="* Sample designs for demonstration.">* Diseños de muestra para la demostración.</p>
+</section>
+
+<section>
+  <div class="cater">
+    <div class="em">🎉</div>
+    <h2 data-es="¿Tienes un evento?" data-en="Having an event?">¿Tienes un evento?</h2>
+    <p data-es="Llevamos el sabor latino a tu fiesta, oficina o reunión: bandejas de sándwiches, comida caliente y más. Pide tu cotización hoy." data-en="We bring Latin flavor to your party, office or gathering: sandwich trays, hot food and more. Get your quote today.">Llevamos el sabor latino a tu fiesta, oficina o reunión: bandejas de sándwiches, comida caliente y más. Pide tu cotización hoy.</p>
+    <a href="https://wa.me/18132690119?text=Hola%2C%20quiero%20cotizar%20catering%20para%20mi%20evento" data-es="Pedir cotización" data-en="Get a quote">Pedir cotización</a>
+  </div>
+</section>
+
+<section>
+  <div class="kicker" data-es="NUESTROS CLIENTES" data-en="OUR CUSTOMERS">NUESTROS CLIENTES</div>
+  <h2 data-es="⭐ 4.6 estrellas en Google" data-en="⭐ 4.6 stars on Google">⭐ 4.6 estrellas en Google</h2>
+  <p class="sub" data-es="Más de 1,095 reseñas" data-en="Over 1,095 reviews">Más de 1,095 reseñas</p>
+  <div class="rev">
+    <div class="who">María G.</div><div class="st">★★★★★</div>
+    <p data-es="“Vegetales frescos que avergüenzan a cualquier supermercado grande. Y el deli de atrás es una joya para almorzar.”" data-en="“Produce so fresh it puts every big supermarket to shame. And the deli in the back is a lunch gem.”">“Vegetales frescos que avergüenzan a cualquier supermercado grande. Y el deli de atrás es una joya para almorzar.”</p>
+  </div>
+  <div class="rev">
+    <div class="who">Carlos R.</div><div class="st">★★★★★</div>
+    <p data-es="“El mejor lugar para encontrar las cositas de mi tierra. Personal amable y todo siempre fresco.”" data-en="“The best place to find those little things from home. Friendly staff and everything always fresh.”">“El mejor lugar para encontrar las cositas de mi tierra. Personal amable y todo siempre fresco.”</p>
+  </div>
+  <div class="rev">
+    <div class="who">Jennifer T.</div><div class="st">★★★★★</div>
+    <p data-es="“Gran variedad y porciones generosas en la comida caliente. Mi parada semanal.”" data-en="“Great variety and generous portions of the hot food. My weekly stop.”">“Gran variedad y porciones generosas en la comida caliente. Mi parada semanal.”</p>
+  </div>
+</section>
+
+<section>
+  <div class="join">
+    <div class="em">🤝</div>
+    <h2 data-es="Únete a nuestro equipo" data-en="Join our team">Únete a nuestro equipo</h2>
+    <p data-es="¿Te apasiona la comida latina y el buen servicio? Descarga la solicitud y forma parte de la familia Latin Fresh Market." data-en="Love Latin food and great service? Download the application and join the Latin Fresh Market family.">¿Te apasiona la comida latina y el buen servicio? Descarga la solicitud y forma parte de la familia Latin Fresh Market.</p>
+    <a href="https://www.latinfreshmarket.com/_files/ugd/c7c17c_bcb713dc236541abaf9e0b2b16ae3ff2.pdf" data-es="📄 Join Us — Descargar solicitud" data-en="📄 Join Us — Download application">📄 Join Us — Descargar solicitud</a>
+  </div>
+</section>
+
+<section>
+  <div class="kicker" data-es="GUARDA Y COMPARTE" data-en="SAVE AND SHARE">GUARDA Y COMPARTE</div>
+  <h2 data-es="📱 Escanea y visítanos" data-en="📱 Scan and visit us">📱 Escanea y visítanos</h2>
+  <p class="sub" data-es="Guarda la página, déjanos una reseña o llega con el mapa" data-en="Save the page, leave a review or get directions">Guarda la página, déjanos una reseña o llega con el mapa</p>
+  <div class="qrs">
+    <div class="qr"><img src="qr/qr-maps.png" alt="QR mapa"><p data-es="Cómo llegar" data-en="Directions">Cómo llegar</p></div>
+    <div class="qr"><img src="qr/qr-review.png" alt="QR reseña"><p data-es="Déjanos reseña" data-en="Leave a review">Déjanos reseña</p></div>
+    <div class="qr"><img src="qr/qr-web.png" alt="QR página"><p data-es="Guarda la página" data-en="Save this page">Guarda la página</p></div>
+  </div>
+</section>
+
+<section>
+  <div class="kicker" data-es="SIEMPRE ABIERTOS" data-en="ALWAYS OPEN">SIEMPRE ABIERTOS</div>
+  <h2 data-es="🕖 Horario" data-en="🕖 Hours">🕖 Horario</h2>
+  <div class="hours" style="margin-top:12px;">
+    <table id="hours-table">
+      <tr><td data-es="Lunes" data-en="Monday">Lunes</td><td>7:00 AM – 9:00 PM</td></tr>
+      <tr><td data-es="Martes" data-en="Tuesday">Martes</td><td>7:00 AM – 9:00 PM</td></tr>
+      <tr><td data-es="Miércoles" data-en="Wednesday">Miércoles</td><td>7:00 AM – 9:00 PM</td></tr>
+      <tr><td data-es="Jueves" data-en="Thursday">Jueves</td><td>7:00 AM – 9:00 PM</td></tr>
+      <tr><td data-es="Viernes" data-en="Friday">Viernes</td><td>7:00 AM – 9:00 PM</td></tr>
+      <tr><td data-es="Sábado" data-en="Saturday">Sábado</td><td>7:00 AM – 9:00 PM</td></tr>
+      <tr><td data-es="Domingo" data-en="Sunday">Domingo</td><td>7:00 AM – 9:00 PM</td></tr>
+    </table>
+  </div>
+</section>
+
+</main>
+
+<a class="fab" href="https://wa.me/18132690119?text=Hola%20Latin%20Fresh%20Market">💬</a>
+
+<footer>
+  <p><strong>Latin Fresh Market</strong></p>
+  <p>Tampa: 4349 Gunn Hwy, Tampa, FL 33618 · (813) 269-0119</p>
+  <p>Riverview: 11357 Big Bend Rd, Riverview, FL 33579 · (813) 672-0972</p>
+  <p style="margin-top:8px;"><a href="https://www.latinfreshmarket.com/">latinfreshmarket.com</a></p>
+</footer>
+
+<div class="demo-tag" data-es="Propuesta de rediseño · Página de demostración por Lester Manzano · Precios y fotos de muestra" data-en="Redesign proposal · Demo page by Lester Manzano · Sample prices and photos">Propuesta de rediseño · Página de demostración por Lester Manzano · Precios y fotos de muestra</div>
+
+<script>
+var LOC = {
+  tampa: { tel:'tel:+18132690119', map:'https://www.google.com/maps/search/?api=1&query=Latin+Fresh+Market+4349+Gunn+Hwy+Tampa+FL+33618' },
+  riverview: { tel:'tel:+18136720972', map:'https://www.google.com/maps/search/?api=1&query=Latin+Fresh+Market+11357+Big+Bend+Rd+Riverview+FL+33579' }
+};
+function setLoc(k){
+  document.getElementById('loc-tampa').style.display = k==='tampa'?'block':'none';
+  document.getElementById('loc-riverview').style.display = k==='riverview'?'block':'none';
+  document.getElementById('tab-tampa').className = k==='tampa'?'on':'';
+  document.getElementById('tab-riverview').className = k==='riverview'?'on':'';
+  document.getElementById('cta-call').href = LOC[k].tel;
+  document.getElementById('cta-map').href = LOC[k].map;
+}
+function setLang(l){
+  document.querySelectorAll('[data-es]').forEach(function(el){
+    el.innerHTML = (l==='es') ? el.getAttribute('data-es') : el.getAttribute('data-en');
+  });
+  document.getElementById('btn-es').className = l==='es'?'on':'';
+  document.getElementById('btn-en').className = l==='en'?'on':'';
+  document.documentElement.lang = l;
+  try{ localStorage.setItem('lfm_lang', l); }catch(e){}
+}
+(function(){
+  try{ var s = localStorage.getItem('lfm_lang'); if(s==='en') setLang('en'); }catch(e){}
+  var d = new Date().getDay();
+  var idx = (d+6)%7;
+  var rows = document.getElementById('hours-table').rows;
+  if(rows[idx]) rows[idx].className='today';
+})();
+</script>
+</body>
+</html>
