@@ -135,13 +135,34 @@ footer p,footer li{font-size:14.5px;list-style:none;margin-bottom:8px}
 .copy{border-top:1px solid #3a352c;text-align:center;padding:18px;font-size:13px;color:#8f8674}
 .wa{position:fixed;right:20px;bottom:20px;background:#25d366;color:#fff;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;text-decoration:none;box-shadow:0 8px 22px rgba(0,0,0,.28);z-index:60}
 .circ-banner{background:#fff8e1;border:2px dashed #e8a13a;border-radius:14px;padding:12px 16px;margin:0 0 16px;font-weight:700;color:#5d4037;text-align:center} .circ-chips{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 14px;margin-bottom:6px} .circ-chip{flex:0 0 auto;border:2px solid var(--line);background:var(--paper);color:var(--char);font-weight:700;font-size:13px;border-radius:20px;padding:8px 16px;cursor:pointer} .circ-chip.on{background:var(--green);border-color:var(--green);color:#fff} .circ-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px} .circ-card{background:var(--paper);border:1px solid var(--line);border-radius:16px;overflow:hidden;position:relative} .circ-card img{width:100%;height:150px;object-fit:cover;display:block} .circ-card .cbadge{position:absolute;top:12px;left:12px;background:var(--red);color:#fff;font-size:11px;font-weight:800;letter-spacing:1px;border-radius:20px;padding:5px 12px} .circ-card .cbody{padding:16px 18px 20px} .circ-card h3{font-size:17px;margin-bottom:6px} .circ-card .cprice{font-size:22px;font-weight:800;color:var(--green)} .circ-card .cprice s{font-size:14px;color:#aaa;font-weight:400;margin-right:8px} .circ-card .cprice small{font-size:12px;color:var(--mut);font-weight:400} .open-dot{font-weight:800;font-size:13px;margin-left:10px} .open-dot.open{color:#1b5e20} .open-dot.closed{color:#b71c1c} </style>
+
+/* store tabs */
+.loc-tabs{display:flex;gap:10px;margin-bottom:24px}
+.loc-tabs button{background:var(--paper);border:2px solid var(--line);color:var(--char);padding:10px 28px;border-radius:30px;font-weight:700;font-size:15px;cursor:pointer}
+.loc-tabs button.on{background:var(--red);border-color:var(--red);color:#fff}
+/* whatsapp band */
+.wa-band{background:linear-gradient(120deg,#1f7a3d,var(--green-d));color:#fff;border-radius:22px;padding:48px 34px;text-align:center}
+.wa-band h2{font-size:clamp(26px,3.2vw,36px);margin-bottom:10px}
+.wa-band p{color:#dcefe2;max-width:52ch;margin:0 auto 24px}
+.wa-band .btn{background:#fff;color:var(--green-d)!important}
+/* join team */
+.join{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:48px 34px;text-align:center;max-width:720px;margin:0 auto}
+.join .em{font-size:44px}
+.join h2{font-size:clamp(26px,3.2vw,34px);margin:10px 0}
+.join p{color:var(--mut);margin-bottom:24px}
+</style>
 </head>
 <body>
 
 <div class="util">
   <div class="wrap">
+<<<<<<< HEAD
     <span>📞 <a href="tel:+18132690119">(813) 269-0119</a> &nbsp;·&nbsp; 🕖 <span data-es="Lun–Dom · 7:00 AM – 9:00 PM" data-en="Mon–Sun · 7:00 AM – 9:00 PM">Lun–Dom · 7:00 AM – 9:00 PM</span></span>
     <span id="open-dot" class="open-dot"></span><span class="lang"><button id="btn-es" class="on" onclick="setLang('es')">ES</button><button id="btn-en" onclick="setLang('en')">EN</button></span>
+=======
+    <span>📞 <a id="util-tel" href="tel:+18132690119">(813) 269-0119</a> &nbsp;·&nbsp; 🕖 <span data-es="Lun–Dom · 7:00 AM – 9:00 PM" data-en="Mon–Sun · 7:00 AM – 9:00 PM">Lun–Dom · 7:00 AM – 9:00 PM</span></span>
+    <span class="lang"><button id="btn-es" class="on" onclick="setLang('es')">ES</button><button id="btn-en" onclick="setLang('en')">EN</button></span>
+>>>>>>> 3286c9c (Reintegra secciones: especiales, WhatsApp, toggle Tampa/Riverview, empleos)
   </div>
 </div>
 
@@ -153,7 +174,11 @@ footer p,footer li{font-size:14.5px;list-style:none;margin-bottom:8px}
       <a href="#mercado" data-es="El Mercado" data-en="The Market">El Mercado</a>
       <a href="#historia" data-es="Nosotros" data-en="Our Story">Nosotros</a>
       <a href="#tiendas" data-es="Tiendas" data-en="Stores">Tiendas</a>
+<<<<<<< HEAD
       <a href="#resenas" data-es="Opiniones" data-en="Reviews">Opiniones</a> <a href="#circular" data-es="Especiales" data-en="Specials">Especiales</a>
+=======
+      <a href="#resenas" data-es="Opiniones" data-en="Reviews">Opiniones</a>
+>>>>>>> 3286c9c (Reintegra secciones: especiales, WhatsApp, toggle Tampa/Riverview, empleos)
     </div>
     <a class="cta" href="https://www.doordash.com/en/store/latin-fresh-market-tampa-905441/" target="_blank" rel="noopener" data-es="Pide a domicilio" data-en="Order delivery">Pide a domicilio</a>
   </div>
@@ -186,7 +211,11 @@ footer p,footer li{font-size:14.5px;list-style:none;margin-bottom:8px}
   </div>
 </div>
 
+<<<<<<< HEAD
 <section class="block" id="circular" style="background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)"> <div class="wrap"> <div class="sec-head"> <span class="tag" data-es="Ahorra cada semana" data-en="Save every week">Ahorra cada semana</span> <h2 data-es="Especiales de la semana" data-en="Weekly specials">Especiales de la semana</h2> <p data-es="Ofertas reales, actualizadas cada semana. Sin recortes, sin apps." data-en="Real deals, updated weekly. No clippings, no apps.">Ofertas reales, actualizadas cada semana. Sin recortes, sin apps.</p> </div> <div class="circ-banner" id="week-banner"></div> <div class="circ-chips" id="cat-chips"></div> <div class="circ-grid" id="circular-grid"></div> <p style="margin-top:14px;font-size:13px;color:var(--mut)" id="circular-note"></p> </div> </section> <section class="block" id="cocina">
+=======
+<section class="block" id="cocina">
+>>>>>>> 3286c9c (Reintegra secciones: especiales, WhatsApp, toggle Tampa/Riverview, empleos)
   <div class="wrap">
     <div class="sec-head">
       <span class="tag" data-es="La cocina caliente" data-en="Hot deli">La cocina caliente</span>
@@ -219,6 +248,16 @@ footer p,footer li{font-size:14.5px;list-style:none;margin-bottom:8px}
           <li data-es="Catering para eventos con EZ Cater" data-en="Event catering with EZ Cater">Catering para eventos con EZ Cater</li>
         </ul>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" style="padding-top:0">
+  <div class="wrap">
+    <div class="wa-band">
+      <h2 data-es="📲 Recibe las ofertas en tu WhatsApp" data-en="📲 Get the deals on your WhatsApp">📲 Recibe las ofertas en tu WhatsApp</h2>
+      <p data-es="Únete a nuestra lista y entérate primero de los especiales de cada semana." data-en="Join our list and hear first about each week's specials.">Únete a nuestra lista y entérate primero de los especiales de cada semana.</p>
+      <a class="btn" href="https://wa.me/18132690119?text=Hola%2C%20quiero%20recibir%20las%20ofertas%20semanales%20de%20Latin%20Fresh%20Market" target="_blank" rel="noopener" data-es="💬 Quiero las ofertas" data-en="💬 I want the deals">💬 Quiero las ofertas</a>
     </div>
   </div>
 </section>
@@ -261,25 +300,29 @@ footer p,footer li{font-size:14.5px;list-style:none;margin-bottom:8px}
       <h2 data-es="Dos tiendas cerca de ti" data-en="Two stores near you">Dos tiendas cerca de ti</h2>
       <p data-es="Abiertas los 7 días, de 7:00 AM a 9:00 PM." data-en="Open 7 days a week, 7:00 AM to 9:00 PM.">Abiertas los 7 días, de 7:00 AM a 9:00 PM.</p>
     </div>
-    <div class="locs">
-      <div class="loc">
-        <h3>Tampa</h3><p class="city">Citrus Park</p>
-        <dl>
-          <dt data-es="Dirección" data-en="Address">Dirección</dt><dd>4349 Gunn Hwy, Tampa, FL 33618</dd>
-          <dt data-es="Teléfono" data-en="Phone">Teléfono</dt><dd><a href="tel:+18132690119">(813) 269-0119</a></dd>
-          <dt data-es="Horario" data-en="Hours">Horario</dt><dd data-es="Lun–Dom · 7:00 AM – 9:00 PM" data-en="Mon–Sun · 7:00 AM – 9:00 PM">Lun–Dom · 7:00 AM – 9:00 PM</dd>
-        </dl>
-        <a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Latin+Fresh+Market+4349+Gunn+Hwy+Tampa+FL+33618" target="_blank" rel="noopener" data-es="Cómo llegar" data-en="Get directions">Cómo llegar</a>
-      </div>
-      <div class="loc">
-        <h3>Riverview</h3><p class="city">Big Bend</p>
-        <dl>
-          <dt data-es="Dirección" data-en="Address">Dirección</dt><dd>11357 Big Bend Rd, Riverview, FL 33579</dd>
-          <dt data-es="Teléfono" data-en="Phone">Teléfono</dt><dd><a href="tel:+18138720972">(813) 872-0972</a></dd>
-          <dt data-es="Horario" data-en="Hours">Horario</dt><dd data-es="Lun–Dom · 7:00 AM – 9:00 PM" data-en="Mon–Sun · 7:00 AM – 9:00 PM">Lun–Dom · 7:00 AM – 9:00 PM</dd>
-        </dl>
-        <a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Latin+Fresh+Market+11357+Big+Bend+Rd+Riverview+FL" target="_blank" rel="noopener" data-es="Cómo llegar" data-en="Get directions">Cómo llegar</a>
-      </div>
+    <div class="loc-tabs">
+      <button id="tab-tampa" class="on" onclick="setLoc('tampa')">Tampa</button>
+      <button id="tab-riverview" onclick="setLoc('riverview')">Riverview</button>
+    </div>
+    <div class="loc" id="loc-tampa">
+      <h3>Tampa</h3><p class="city">Citrus Park</p>
+      <dl>
+        <dt data-es="Dirección" data-en="Address">Dirección</dt><dd>4349 Gunn Hwy, Tampa, FL 33618</dd>
+        <dt data-es="Teléfono" data-en="Phone">Teléfono</dt><dd><a href="tel:+18132690119">(813) 269-0119</a></dd>
+        <dt>Email</dt><dd><a href="mailto:info@LatinFreshMarket.com">info@LatinFreshMarket.com</a></dd>
+        <dt data-es="Horario" data-en="Hours">Horario</dt><dd data-es="Lun–Dom · 7:00 AM – 9:00 PM" data-en="Mon–Sun · 7:00 AM – 9:00 PM">Lun–Dom · 7:00 AM – 9:00 PM</dd>
+      </dl>
+      <a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Latin+Fresh+Market+4349+Gunn+Hwy+Tampa+FL+33618" target="_blank" rel="noopener" data-es="Cómo llegar" data-en="Get directions">Cómo llegar</a>
+    </div>
+    <div class="loc" id="loc-riverview" style="display:none">
+      <h3>Riverview</h3><p class="city">Big Bend</p>
+      <dl>
+        <dt data-es="Dirección" data-en="Address">Dirección</dt><dd>11357 Big Bend Rd, Riverview, FL 33579</dd>
+        <dt data-es="Teléfono" data-en="Phone">Teléfono</dt><dd><a href="tel:+18138720972">(813) 872-0972</a></dd>
+        <dt>Email</dt><dd><a href="mailto:riverview@latinfreshmarket.com">riverview@latinfreshmarket.com</a></dd>
+        <dt data-es="Horario" data-en="Hours">Horario</dt><dd data-es="Lun–Dom · 7:00 AM – 9:00 PM" data-en="Mon–Sun · 7:00 AM – 9:00 PM">Lun–Dom · 7:00 AM – 9:00 PM</dd>
+      </dl>
+      <a class="mapbtn" href="https://www.google.com/maps/search/?api=1&query=Latin+Fresh+Market+11357+Big+Bend+Rd+Riverview+FL" target="_blank" rel="noopener" data-es="Cómo llegar" data-en="Get directions">Cómo llegar</a>
     </div>
   </div>
 </section>
@@ -307,6 +350,17 @@ footer p,footer li{font-size:14.5px;list-style:none;margin-bottom:8px}
         <p data-es="Bandejas de empanadas, cubanitos, croquetas, chicharrón y más para tus fiestas y oficinas. Pide por EZ Cater o llámanos directo." data-en="Trays of empanadas, mini Cubans, croquettes, chicharrón and more for your parties and offices. Order via EZ Cater or call us directly.">Bandejas de empanadas, cubanitos, croquetas, chicharrón y más para tus fiestas y oficinas. Pide por EZ Cater o llámanos directo.</p>
       </div>
       <a class="btn" href="tel:+18132690119" data-es="Cotizar catering" data-en="Get catering quote">Cotizar catering</a>
+    </div>
+  </div>
+</section>
+
+<section class="block" style="padding-top:0">
+  <div class="wrap">
+    <div class="join">
+      <div class="em">🤝</div>
+      <h2 data-es="Únete a nuestro equipo" data-en="Join our team">Únete a nuestro equipo</h2>
+      <p data-es="¿Te apasiona la comida latina y el buen servicio? Forma parte de la familia Latin Fresh Market." data-en="Love Latin food and great service? Join the Latin Fresh Market family.">¿Te apasiona la comida latina y el buen servicio? Forma parte de la familia Latin Fresh Market.</p>
+      <a class="btn red" href="https://www.latinfreshmarket.com/_files/ugd/c7c17c_bcb713dc236541abaf9e0b2b16ae3ff2.pdf" target="_blank" rel="noopener" data-es="📄 Descargar solicitud" data-en="📄 Download application">📄 Descargar solicitud</a>
     </div>
   </div>
 </section>
@@ -341,6 +395,18 @@ footer p,footer li{font-size:14.5px;list-style:none;margin-bottom:8px}
 <a class="wa" href="https://wa.me/18132690119" target="_blank" rel="noopener" aria-label="WhatsApp">✆</a> <script src="js/circular.js"></script>
 
 <script>
+var LOC={
+  tampa:{tel:'tel:+18132690119',txt:'(813) 269-0119'},
+  riverview:{tel:'tel:+18138720972',txt:'(813) 872-0972'}
+};
+function setLoc(k){
+  document.getElementById('loc-tampa').style.display=k==='tampa'?'block':'none';
+  document.getElementById('loc-riverview').style.display=k==='riverview'?'block':'none';
+  document.getElementById('tab-tampa').className=k==='tampa'?'on':'';
+  document.getElementById('tab-riverview').className=k==='riverview'?'on':'';
+  var t=document.getElementById('util-tel');
+  if(t){t.href=LOC[k].tel;t.textContent=LOC[k].txt;}
+}
 function setLang(l){
   document.documentElement.lang=l;
   document.querySelectorAll('[data-es]').forEach(el=>{
