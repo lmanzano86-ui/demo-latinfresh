@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1"> <meta name="description" content="Latin Fresh Market: supermercado latino en Tampa y Riverview, FL. Especiales semanales, carniceria, deli, panaderia y comida caliente."> <meta property="og:title" content="Latin Fresh Market — El sabor de tu tierra en Tampa"> <meta property="og:description" content="Especiales semanales, carniceria, deli y comida latina hecha en casa. Abierto los 7 dias."> <meta property="og:type" content="website"> <meta property="og:image" content="https://lmanzano86-ui.github.io/demo-latinfresh/imgs/hero-mercado.webp"> <meta name="theme-color" content="#1b5e20"> <link rel="manifest" href="manifest.json"> <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"GroceryStore","name":"Latin Fresh Market - Tampa","address":{"@type":"PostalAddress","streetAddress":"4349 Gunn Hwy","addressLocality":"Tampa","addressRegion":"FL","postalCode":"33618"},"telephone":"+1-813-269-0119","openingHours":"Mo-Su 07:00-21:00","priceRange":"$"},{"@type":"GroceryStore","name":"Latin Fresh Market - Riverview","address":{"@type":"PostalAddress","streetAddress":"11357 Big Bend Rd","addressLocality":"Riverview","addressRegion":"FL","postalCode":"33579"},"telephone":"+1-813-872-0972","openingHours":"Mo-Su 07:00-21:00","priceRange":"$"}]}</script>
 <title>Latin Fresh Market — El sabor de tu tierra en Tampa</title>
 <style>
 :root{
@@ -134,14 +134,14 @@ footer a:hover{color:var(--gold)}
 footer p,footer li{font-size:14.5px;list-style:none;margin-bottom:8px}
 .copy{border-top:1px solid #3a352c;text-align:center;padding:18px;font-size:13px;color:#8f8674}
 .wa{position:fixed;right:20px;bottom:20px;background:#25d366;color:#fff;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:30px;text-decoration:none;box-shadow:0 8px 22px rgba(0,0,0,.28);z-index:60}
-</style>
+.circ-banner{background:#fff8e1;border:2px dashed #e8a13a;border-radius:14px;padding:12px 16px;margin:0 0 16px;font-weight:700;color:#5d4037;text-align:center} .circ-chips{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 14px;margin-bottom:6px} .circ-chip{flex:0 0 auto;border:2px solid var(--line);background:var(--paper);color:var(--char);font-weight:700;font-size:13px;border-radius:20px;padding:8px 16px;cursor:pointer} .circ-chip.on{background:var(--green);border-color:var(--green);color:#fff} .circ-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px} .circ-card{background:var(--paper);border:1px solid var(--line);border-radius:16px;overflow:hidden;position:relative} .circ-card img{width:100%;height:150px;object-fit:cover;display:block} .circ-card .cbadge{position:absolute;top:12px;left:12px;background:var(--red);color:#fff;font-size:11px;font-weight:800;letter-spacing:1px;border-radius:20px;padding:5px 12px} .circ-card .cbody{padding:16px 18px 20px} .circ-card h3{font-size:17px;margin-bottom:6px} .circ-card .cprice{font-size:22px;font-weight:800;color:var(--green)} .circ-card .cprice s{font-size:14px;color:#aaa;font-weight:400;margin-right:8px} .circ-card .cprice small{font-size:12px;color:var(--mut);font-weight:400} .open-dot{font-weight:800;font-size:13px;margin-left:10px} .open-dot.open{color:#1b5e20} .open-dot.closed{color:#b71c1c} </style>
 </head>
 <body>
 
 <div class="util">
   <div class="wrap">
     <span>📞 <a href="tel:+18132690119">(813) 269-0119</a> &nbsp;·&nbsp; 🕖 <span data-es="Lun–Dom · 7:00 AM – 9:00 PM" data-en="Mon–Sun · 7:00 AM – 9:00 PM">Lun–Dom · 7:00 AM – 9:00 PM</span></span>
-    <span class="lang"><button id="btn-es" class="on" onclick="setLang('es')">ES</button><button id="btn-en" onclick="setLang('en')">EN</button></span>
+    <span id="open-dot" class="open-dot"></span><span class="lang"><button id="btn-es" class="on" onclick="setLang('es')">ES</button><button id="btn-en" onclick="setLang('en')">EN</button></span>
   </div>
 </div>
 
@@ -153,7 +153,7 @@ footer p,footer li{font-size:14.5px;list-style:none;margin-bottom:8px}
       <a href="#mercado" data-es="El Mercado" data-en="The Market">El Mercado</a>
       <a href="#historia" data-es="Nosotros" data-en="Our Story">Nosotros</a>
       <a href="#tiendas" data-es="Tiendas" data-en="Stores">Tiendas</a>
-      <a href="#resenas" data-es="Opiniones" data-en="Reviews">Opiniones</a>
+      <a href="#resenas" data-es="Opiniones" data-en="Reviews">Opiniones</a> <a href="#circular" data-es="Especiales" data-en="Specials">Especiales</a>
     </div>
     <a class="cta" href="https://www.doordash.com/en/store/latin-fresh-market-tampa-905441/" target="_blank" rel="noopener" data-es="Pide a domicilio" data-en="Order delivery">Pide a domicilio</a>
   </div>
@@ -186,7 +186,7 @@ footer p,footer li{font-size:14.5px;list-style:none;margin-bottom:8px}
   </div>
 </div>
 
-<section class="block" id="cocina">
+<section class="block" id="circular" style="background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)"> <div class="wrap"> <div class="sec-head"> <span class="tag" data-es="Ahorra cada semana" data-en="Save every week">Ahorra cada semana</span> <h2 data-es="Especiales de la semana" data-en="Weekly specials">Especiales de la semana</h2> <p data-es="Ofertas reales, actualizadas cada semana. Sin recortes, sin apps." data-en="Real deals, updated weekly. No clippings, no apps.">Ofertas reales, actualizadas cada semana. Sin recortes, sin apps.</p> </div> <div class="circ-banner" id="week-banner"></div> <div class="circ-chips" id="cat-chips"></div> <div class="circ-grid" id="circular-grid"></div> <p style="margin-top:14px;font-size:13px;color:var(--mut)" id="circular-note"></p> </div> </section> <section class="block" id="cocina">
   <div class="wrap">
     <div class="sec-head">
       <span class="tag" data-es="La cocina caliente" data-en="Hot deli">La cocina caliente</span>
@@ -338,7 +338,7 @@ footer p,footer li{font-size:14.5px;list-style:none;margin-bottom:8px}
   <div class="copy">© 2026 Latin Fresh Market · <span data-es="Demo de diseño — New Age Professional Services" data-en="Design demo — New Age Professional Services">Demo de diseño — New Age Professional Services</span></div>
 </footer>
 
-<a class="wa" href="https://wa.me/18132690119" target="_blank" rel="noopener" aria-label="WhatsApp">✆</a>
+<a class="wa" href="https://wa.me/18132690119" target="_blank" rel="noopener" aria-label="WhatsApp">✆</a> <script src="js/circular.js"></script>
 
 <script>
 function setLang(l){
@@ -350,5 +350,5 @@ function setLang(l){
   document.getElementById('btn-en').classList.toggle('on',l==='en');
 }
 </script>
-</body>
+<script> var CIRC_LANG='es', CIRC_CAT='todas'; var MESES={es:["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"],en:["January","February","March","April","May","June","July","August","September","October","November","December"]}; function miercolesActual(){var d=new Date();var diff=(d.getDay()+7-3)%7;d.setDate(d.getDate()-diff);d.setHours(0,0,0,0);return d;} function indiceSemana(){var ini=new Date(CIRCULAR.inicio_ciclo+"T00:00:00");var s=Math.floor((miercolesActual()-ini)/(7*24*3600*1000));var n=CIRCULAR.semanas.length;return ((s%n)+n)%n;} function fmtCorta(d,l){var dias={es:["dom","lun","mar","mié","jue","vie","sáb"],en:["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]};return dias[l][d.getDay()]+" "+d.getDate()+" "+MESES[l][d.getMonth()];} function renderCircular(){if(typeof CIRCULAR==="undefined")return;var L=CIRC_LANG,sem=CIRCULAR.semanas[indiceSemana()];var mie=miercolesActual(),mar=new Date(mie);mar.setDate(mar.getDate()+6);var b=document.getElementById('week-banner');if(b)b.textContent=(L==='es'?"Válida del ":"Valid ")+fmtCorta(mie,L)+(L==='es'?" al ":" to ")+fmtCorta(mar,L);var ch=document.getElementById('cat-chips');if(ch){var h="";Object.keys(CIRC_CATS).forEach(function(k){h+='<button class="circ-chip'+(CIRC_CAT===k?' on':'')+'" onclick="CIRC_CAT=&#39;'+k+'&#39;;renderCircular()">'+CIRC_CATS[k][L]+'</button>';});ch.innerHTML=h;}var g=document.getElementById('circular-grid');if(g){var items=sem.items.filter(function(it){return CIRC_CAT==='todas'||it.cat===CIRC_CAT;});g.innerHTML=items.map(function(it){var antes=it.antes?'<s>'+it.antes+'</s>':'';var u=it['unidad_'+L]?'<small> '+it['unidad_'+L]+'</small>':'';return '<div class="circ-card"><span class="cbadge">'+it['badge_'+L]+'</span><img src="'+it.img+'" alt="'+it['nombre_'+L]+'" loading="lazy"><div class="cbody"><h3>'+it['nombre_'+L]+'</h3><div class="cprice">'+antes+it.precio+u+'</div></div></div>';}).join('');}var n=document.getElementById('circular-note');if(n)n.textContent=(L==='es'?CIRCULAR.nota_demo_es:CIRCULAR.nota_demo_en);var h=new Date().getHours(),ab=h>=7&&h<21,el=document.getElementById('open-dot');if(el){el.textContent=ab?(CIRC_LANG==='es'?"● Abierto ahora":"● Open now"):(CIRC_LANG==='es'?"● Cerrado":"● Closed");el.className='open-dot '+(ab?'open':'closed');}} var _setLang=setLang;setLang=function(l){_setLang(l);CIRC_LANG=l;renderCircular();}; renderCircular(); </script> </body>
 </html>
