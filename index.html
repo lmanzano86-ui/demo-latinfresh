@@ -2,7 +2,9 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1"> <meta name="description" content="Latin Fresh Market: supermercado latino en Tampa y Riverview, FL. Especiales semanales, carniceria, deli, panaderia y comida caliente."> <meta property="og:title" content="Latin Fresh Market — El sabor de tu tierra en Tampa"> <meta property="og:description" content="Especiales semanales, carniceria, deli y comida latina hecha en casa. Abierto los 7 dias."> <meta property="og:type" content="website"> <meta property="og:image" content="https://lmanzano86-ui.github.io/demo-latinfresh/imgs/hero-mercado.webp"> <meta name="theme-color" content="#1b5e20"> <link rel="manifest" href="manifest.json"> <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"GroceryStore","name":"Latin Fresh Market - Tampa","address":{"@type":"PostalAddress","streetAddress":"4349 Gunn Hwy","addressLocality":"Tampa","addressRegion":"FL","postalCode":"33618"},"telephone":"+1-813-269-0119","openingHours":"Mo-Su 07:00-21:00","priceRange":"$"},{"@type":"GroceryStore","name":"Latin Fresh Market - Riverview","address":{"@type":"PostalAddress","streetAddress":"11357 Big Bend Rd","addressLocality":"Riverview","addressRegion":"FL","postalCode":"33579"},"telephone":"+1-813-872-0972","openingHours":"Mo-Su 07:00-21:00","priceRange":"$"}]}function setTheme(n){
+<meta name="viewport" content="width=device-width, initial-scale=1"> <meta name="description" content="Latin Fresh Market: supermercado latino en Tampa y Riverview, FL. Especiales semanales, carniceria, deli, panaderia y comida caliente."> <meta property="og:title" content="Latin Fresh Market — El sabor de tu tierra en Tampa"> <meta property="og:description" content="Especiales semanales, carniceria, deli y comida latina hecha en casa. Abierto los 7 dias."> <meta property="og:type" content="website"> <meta property="og:image" content="https://lmanzano86-ui.github.io/demo-latinfresh/imgs/hero-mercado.webp"> <meta name="theme-color" content="#1b5e20"> <link rel="manifest" href="manifest.json"> <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"GroceryStore","name":"Latin Fresh Market - Tampa","address":{"@type":"PostalAddress","streetAddress":"4349 Gunn Hwy","addressLocality":"Tampa","addressRegion":"FL","postalCode":"33618"},"telephone":"+1-813-269-0119","openingHours":"Mo-Su 07:00-21:00","priceRange":"$"},{"@type":"GroceryStore","name":"Latin Fresh Market - Riverview","address":{"@type":"PostalAddress","streetAddress":"11357 Big Bend Rd","addressLocality":"Riverview","addressRegion":"FL","postalCode":"33579"},"telephone":"+1-813-872-0972","openingHours":"Mo-Su 07:00-21:00","priceRange":"$"}]}</script>
+<script>
+function setTheme(n){
   document.getElementById('theme-css').href='theme-v'+n+'.css';
   for(var i=1;i<=3;i++)document.getElementById('th'+i).classList.toggle('on',i===n);
   try{localStorage.setItem('lfm-theme','theme-v'+n+'.css');}catch(e){}
@@ -12,21 +14,6 @@
 <title>Latin Fresh Market — El sabor de tu tierra en Tampa</title>
 <link id="theme-css" rel="stylesheet" href="theme-v2.css">
 
-/* store tabs */
-.loc-tabs{display:flex;gap:10px;margin-bottom:24px}
-.loc-tabs button{background:var(--paper);border:2px solid var(--line);color:var(--char);padding:10px 28px;border-radius:30px;font-weight:700;font-size:15px;cursor:pointer}
-.loc-tabs button.on{background:var(--red);border-color:var(--red);color:#fff}
-/* whatsapp band */
-.wa-band{background:linear-gradient(120deg,#1f7a3d,var(--green-d));color:#fff;border-radius:22px;padding:48px 34px;text-align:center}
-.wa-band h2{font-size:clamp(26px,3.2vw,36px);margin-bottom:10px}
-.wa-band p{color:#dcefe2;max-width:52ch;margin:0 auto 24px}
-.wa-band .btn{background:#fff;color:var(--green-d)!important}
-/* join team */
-.join{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:48px 34px;text-align:center;max-width:720px;margin:0 auto}
-.join .em{font-size:44px}
-.join h2{font-size:clamp(26px,3.2vw,34px);margin:10px 0}
-.join p{color:var(--mut);margin-bottom:24px}
-</style>
 </head>
 <style>
 .theme-sw{position:fixed;left:14px;bottom:14px;z-index:200;background:#24211c;color:#fff;border-radius:30px;padding:6px 8px;display:flex;gap:4px;align-items:center;box-shadow:0 8px 22px rgba(0,0,0,.35);font-family:system-ui,Arial,sans-serif}
