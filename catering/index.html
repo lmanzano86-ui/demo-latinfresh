@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Catering</title>
+<style>
+*{box-sizing:border-box}body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;margin:0;background:#faf5ec;color:#24211c}
+:root{--pri:#b5342a;--acc:#e8a13a;--dark:#24211c}
+header{background:var(--dark);color:#fff;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+header h1{margin:0;font-size:20px}header p{margin:2px 0 0;color:#bdbdbd;font-size:13px}
+.lang{background:transparent;border:1px solid #555;color:#fff;border-radius:20px;padding:6px 14px;cursor:pointer;font-size:13px}
+.wrap{max-width:1060px;margin:0 auto;padding:18px 14px 90px;display:grid;grid-template-columns:1fr 320px;gap:18px}
+@media(max-width:860px){.wrap{grid-template-columns:1fr}}
+.card{background:#fff;border-radius:14px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.06);margin-bottom:16px}
+.steps{display:flex;gap:6px;margin-bottom:18px;flex-wrap:wrap}
+.step-dot{flex:1;min-width:90px;text-align:center;font-size:12px;color:#999;padding:8px 4px;border-radius:8px;background:#fff;border:1px solid #eee}
+.step-dot.on{background:var(--dark);color:#fff;border-color:var(--dark);font-weight:700}
+.step-dot.done{background:#e8f5e9;color:#2e7d32;border-color:#c8e6c9}
+h2{margin:0 0 6px;font-size:19px}h3{margin:16px 0 8px;font-size:15px;color:var(--pri)}
+.sub{color:#777;font-size:13.5px;margin:0 0 14px}
+.btn{display:inline-block;background:var(--pri);color:#fff;border:0;border-radius:10px;padding:13px 26px;font-size:16px;font-weight:700;cursor:pointer}
+.btn.sec{background:#fff;color:var(--dark);border:2px solid var(--dark)}
+.btn.ghost{background:#eee;color:#333}
+.btn:disabled{opacity:.45;cursor:default}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+input,select,textarea{width:100%;padding:11px 12px;border:1.5px solid #ddd;border-radius:9px;font-size:15px;margin:4px 0}
+label.fl{display:block;font-size:13px;font-weight:600;margin-top:10px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:560px){.grid2{grid-template-columns:1fr}}
+.pkg,.mi{border:1.5px solid #eee;border-radius:12px;padding:14px;margin-bottom:10px}
+.pkg.sel,.mi.sel{border-color:var(--acc);background:#fffdf5}
+.pkg h4,.mi h4{margin:0 0 4px;font-size:15.5px}.pkg .pp{font-weight:800;color:var(--pri);font-size:17px}
+.mi .desc{font-size:13px;color:#666;margin:2px 0 8px}
+.qty{display:flex;align-items:center;gap:10px}.qty button{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--dark);background:#fff;font-size:18px;cursor:pointer;font-weight:700}
+.qty b{min-width:28px;text-align:center;font-size:16px}
+.tier{border:2px solid #eee;border-radius:12px;padding:14px;margin-bottom:10px;cursor:pointer}
+.tier.sel{border-color:var(--pri);background:#fff8f6}
+.tier h4{margin:0 0 4px}.tier .fee{font-weight:700;color:var(--pri)}
+.meter{height:12px;background:#eee;border-radius:6px;overflow:hidden;margin:8px 0}
+.meter i{display:block;height:100%;background:var(--acc);border-radius:6px;transition:width .3s}
+.meter.ok i{background:#2e7d32}
+.sum{background:var(--dark);color:#fff;border-radius:14px;padding:18px;position:sticky;top:14px}
+.sum h3{color:var(--acc);margin:0 0 10px}
+.sum .ln{display:flex;justify-content:space-between;font-size:13.5px;padding:3px 0;color:#e8e8e8}
+.sum .tot{display:flex;justify-content:space-between;font-size:18px;font-weight:800;border-top:1px solid #555;margin-top:10px;padding-top:10px}
+.sum .dep{font-size:12.5px;color:var(--acc);margin-top:6px}
+.coupon{display:flex;gap:8px;margin-top:10px}.coupon input{margin:0}
+.alert{background:#fff3e0;border:1px solid #ffcc80;border-radius:10px;padding:12px 14px;font-size:14px;margin:12px 0}
+.okmsg{background:#e8f5e9;border:1px solid #a5d6a7;border-radius:12px;padding:18px;text-align:center}
+.okmsg .code{font-size:26px;font-weight:800;letter-spacing:1px;color:var(--pri);margin:10px 0}
+.hide{display:none!important}
+.wa{background:#25d366;color:#fff;border:0;border-radius:10px;padding:12px 20px;font-weight:700;cursor:pointer;font-size:15px;text-decoration:none;display:inline-block}
+table{width:100%;border-collapse:collapse;font-size:13.5px}td,th{padding:8px;border-bottom:1px solid #eee;text-align:left}
+.cat{font-size:12px;text-transform:uppercase;letter-spacing:1px;color:#999;margin:18px 0 8px;font-weight:700}
+</style>
+</head>
+<body>
+<header>
+<div><h1 id="b-name">Catering</h1><p id="b-tag"></p></div>
+<span style="display:flex;gap:10px;align-items:center"><span style="background:#e8a13a;color:#24211c;font-size:11px;font-weight:800;padding:4px 10px;border-radius:12px">DEMO</span><button class="lang" id="langbtn">EN</button></span>
+</header>
+<div class="wrap">
+<div>
+<div class="steps" id="steps"></div>
+<div id="pane"></div>
+</div>
+<div><div class="sum" id="sumbox"></div></div>
+</div>
+<script>
+const DEMO_CFG = {"slug": "latin-fresh", "name": "Latin Fresh Market", "tagline": "Catering cubano para sus eventos — Tampa y Riverview", "phone": "+18132690119", "phoneDisplay": "(813) 269-0119", "whatsapp": "18132690119", "address": "4349 Gunn Hwy, Tampa, FL 33618", "timezone": "America/New_York", "currency": "USD", "locale": "es", "theme": {"accent": "#e8a13a", "cream": "#faf5ec", "dark": "#24211c", "primary": "#b5342a"}, "fulfillment": {"delivery": {"enabled": true, "fee": 25, "freeOver": 300, "label": "Entrega a domicilio/oficina", "leadTimeHours": 24, "windows": ["09:00-11:00", "11:00-13:00", "13:00-15:00", "15:00-17:00"]}, "pickup": {"enabled": true, "label": "Recoger en tienda", "leadTimeHours": 4}, "setup": {"desc": "Llevamos todo, montamos el buffet con calentadores y utensilios, y nos retiramos.", "enabled": true, "fee": 75, "label": "Montaje completo (buffet)", "leadTimeHours": 48}}, "leadTimeRules": [{"leadTimeHours": 48, "minTotal": 500}, {"leadTimeHours": 72, "minTotal": 1500}], "quoteThreshold": {"people": 50, "total": 1500}, "menu": [{"category": "Bandejas calientes", "desc": "Nuestra famosa ropa vieja, cocinada lento por 6 horas", "id": "ropa-vieja", "name": "Ropa vieja", "sizes": [{"feeds": "8-10", "id": "half", "label": "Media bandeja", "price": 65}, {"feeds": "18-20", "id": "full", "label": "Bandeja completa", "price": 120}]}, {"category": "Bandejas calientes", "desc": "Pierna de cerdo marinada en mojo criollo", "id": "lechon", "name": "Lechón asado", "sizes": [{"feeds": "8-10", "id": "half", "label": "Media bandeja", "price": 70}, {"feeds": "18-20", "id": "full", "label": "Bandeja completa", "price": 130}]}, {"category": "Acompañamientos", "desc": "Arroz con frijoles negros, el clásico", "id": "con gri", "name": "Arroz congrí", "sizes": [{"feeds": "10-12", "id": "half", "label": "Media bandeja", "price": 35}, {"feeds": "22-25", "id": "full", "label": "Bandeja completa", "price": 60}]}, {"category": "Frituras", "desc": "Por docenas, recién hechas", "id": "croquetas", "name": "Croquetas de jamón", "sizes": [{"feeds": "6-8", "id": "dz", "label": "Docena", "price": 14}, {"feeds": "24-30", "id": "4dz", "label": "4 docenas", "price": 48}]}, {"category": "Frituras", "desc": "Carne, pollo o queso", "id": "empanadas", "name": "Empanadas", "sizes": [{"feeds": "6-8", "id": "dz", "label": "Docena", "price": 22}, {"feeds": "24-30", "id": "4dz", "label": "4 docenas", "price": 78}]}, {"category": "Postres", "desc": "Entero, para compartir", "id": "flan", "name": "Flan cubano", "sizes": [{"feeds": "10-12", "id": "uno", "label": "1 flan entero", "price": 28}]}], "packages": [{"desc": "El favorito de las oficinas", "id": "almuerzo-cubano", "includes": ["Arroz congrí o blanco", "Ropa vieja o lechón asado", "Yuca con mojo o plátanos", "Pan cubano", "Postre del día"], "minPeople": 10, "name": "Almuerzo cubano", "perPerson": 14.95}, {"desc": "Para cumpleaños y reuniones", "id": "picadera-fiesta", "includes": ["Croquetas (2 p/p)", "Empanadas (1 p/p)", "Papa rellena (1 p/p)", "Salsas de la casa"], "minPeople": 15, "name": "Picadera de fiesta", "perPerson": 11.95}, {"desc": "Empiece la reunión con energía", "id": "desayuno", "includes": ["Huevos revueltos", "Papas", "Pan cubano con mantequilla", "Café cubano y jugo"], "minPeople": 10, "name": "Desayuno latino", "perPerson": 9.95}], "payments": [{"id": "mock", "label": "Tarjeta (demo)"}, {"id": "manual", "label": "Pagar en el local"}], "deposit": {"type": "percent", "value": 25}, "minOrder": 75};
+// --- MODO DEMO ESTÁTICA: sin backend, todo local ---
+const _orders = JSON.parse(localStorage.getItem('demo-orders') || '[]');
+function parseFeeds(f){ if(!f) return [0,0]; const n=String(f).match(/\d+/g); if(!n) return [0,0]; return n.length===1?[+n[0],+n[0]]:[+n[0],+n[1]]; }
+function demoPrice(body){
+  const items=body.items||[], pkgs=body.packages||[], ful=body.fulfillment||'pickup';
+  const menu=DEMO_CFG.menu, lines=[]; let sub=0, fMin=0, fMax=0;
+  for(const it of items){ const m=menu.find(x=>x.id===it.menuId); const sz=(m.sizes||[]).find(s=>s.id===it.sizeId)||m.sizes[0];
+    const q=Math.max(1,Math.min(99,parseInt(it.qty)||1)); const lt=+(sz.price*q).toFixed(2); sub+=lt;
+    const [a,b2]=parseFeeds(sz.feeds); fMin+=a*q; fMax+=b2*q;
+    lines.push({kind:'item',name:m.name,size:sz.label,qty:q,unitPrice:sz.price,total:lt,feeds:sz.feeds}); }
+  let pkgP=0;
+  for(const p of pkgs){ const P=(DEMO_CFG.packages||[]).find(x=>x.id===p.packageId); const n=Math.max(P.minPeople||1,parseInt(p.people)||0);
+    const lt=+(P.perPerson*n).toFixed(2); sub+=lt; pkgP+=n; lines.push({kind:'package',name:P.name,people:n,unitPrice:P.perPerson,total:lt}); }
+  const tP=Math.max(body.people||0,pkgP); sub=+sub.toFixed(2);
+  let disc=0, coupon=null; const code=String(body.couponCode||'').trim().toUpperCase();
+  if(code){ coupon=(DEMO_CFG.coupons||[]).find(c=>c.code.toUpperCase()===code&&c.enabled!==false);
+    if(!coupon) return {error:'Cupón no válido'};
+    if(coupon.minSubtotal&&sub<coupon.minSubtotal) return {error:'Este cupón requiere $'+coupon.minSubtotal+' mínimo'};
+    disc=coupon.type==='percent'?+(sub*coupon.value/100).toFixed(2):Math.min(sub,coupon.value); }
+  const sub2=+(sub-disc).toFixed(2);
+  const f=(DEMO_CFG.fulfillment||{})[ful]||{}; let fee=0;
+  if(ful==='delivery') fee=(f.freeOver&&sub>=f.freeOver)?0:(f.fee||0); else if(ful==='setup') fee=f.fee||0;
+  const total=+(sub2+fee).toFixed(2);
+  const qt=DEMO_CFG.quoteThreshold||{};
+  const needsQuote=(qt.people&&tP>=qt.people)||(qt.total&&sub>=qt.total);
+  const dep=DEMO_CFG.deposit||{type:'none'}; let depDue=total;
+  if(dep.type==='percent') depDue=+(total*dep.value/100).toFixed(2); else if(dep.type==='fixed') depDue=Math.min(total,dep.value);
+  return {lines,subtotal:sub,discount:disc,coupon:coupon?{code:coupon.code,label:coupon.label}:null,fulfillment:ful,fulfillmentFee:fee,total,totalPeople:tP,feedsMin:fMin,feedsMax:fMax,needsQuote,depositDue:depDue,deposit:dep};
+}
+
+const slug = 'latin-fresh'; // demo estática
+let CFG = null, LANG = localStorage.getItem('cb-lang') || 'es';
+const S = { step: 0, headcount: 20, items: {}, packages: {}, fulfillment: 'pickup', date: '', window: '', address: '', customer: {name:'',email:'',phone:''}, corp: false, company: '', po: '', notes: '', coupon: '', payment: 'mock', usual: null };
+
+const T = {
+es: { steps: ['Personas','Armar pedido','Entrega','Tus datos','Pago'], people: '¿Para cuántas personas?', peopleSub: 'Ajustamos las cantidades por ti', usual: '¿Ya pediste antes? Trae tu pedido de siempre', usualPh: 'tu correo', usualBtn: 'Traer mi pedido', build: 'Arma tu pedido', pkgs: 'Paquetes por persona', alacarte: 'Bandejas a la carta', feeds: 'rinde', serves: 'Tu pedido rinde para', of: 'de', need: 'personas — te falta', over: 'personas — vas sobrado', justRight: '¡Justo para tu evento!', perPerson: '/persona', min: 'mín.', delivery: '¿Cómo lo quieres?', pickup: 'Recoger en tienda', ddate: 'Fecha del evento', dwin: 'Hora de entrega', addr: 'Dirección de entrega', yourData: 'Tus datos', name: 'Nombre', email: 'Correo', phone: 'Teléfono', corp: 'Es pedido de empresa/oficina', company: 'Empresa', po: 'Orden de compra (PO, opcional)', notes: 'Notas (alergias, detalles)', pay: 'Resumen y pago', coupon: 'Cupón', couponPh: 'Código', apply: 'Aplicar', card: 'Tarjeta', demo: 'Tarjeta (demo)', local: 'Pagar en el local', invoice: 'Facturar a mi empresa', depositNote: 'Anticipo para confirmar', total: 'Total', payBtn: 'Confirmar pedido', back: 'Atrás', next: 'Continuar', confirmTitle: '¡Pedido recibido!', confirmSub: 'Te contactaremos para confirmar los detalles.', quote: 'Este pedido necesita cotización personalizada', quoteBtn: 'Solicitar cotización', quoteOk: '¡Cotización solicitada! Te responderemos pronto.', free: 'Gratis', minOrder: 'Pedido mínimo', servesU: 'personas', again: 'Hacer otro pedido', mycode: 'Tu código de pedido', wa: 'Enviar por WhatsApp', invalidCoupon: 'Cupón no válido' },
+en: { steps: ['Guests','Build order','Delivery','Your info','Payment'], people: 'How many guests?', peopleSub: 'We size the portions for you', usual: 'Ordered before? Bring back your usual', usualPh: 'your email', usualBtn: 'Get my usual', build: 'Build your order', pkgs: 'Per-person packages', alacarte: 'Party trays', feeds: 'serves', serves: 'Your order serves', of: 'of', need: 'guests — add a bit more', over: 'guests — you have extra', justRight: 'Just right for your event!', perPerson: '/person', min: 'min.', delivery: 'How do you want it?', pickup: 'Pick up at store', ddate: 'Event date', dwin: 'Delivery time', addr: 'Delivery address', yourData: 'Your info', name: 'Name', email: 'Email', phone: 'Phone', corp: 'This is a corporate order', company: 'Company', po: 'PO number (optional)', notes: 'Notes (allergies, details)', pay: 'Review & pay', coupon: 'Coupon', couponPh: 'Code', apply: 'Apply', card: 'Card', demo: 'Card (demo)', local: 'Pay at the store', invoice: 'Bill my company', depositNote: 'Deposit to confirm', total: 'Total', payBtn: 'Place order', back: 'Back', next: 'Continue', confirmTitle: 'Order received!', confirmSub: 'We will contact you to confirm details.', quote: 'This order needs a custom quote', quoteBtn: 'Request quote', quoteOk: 'Quote requested! We will reply soon.', free: 'Free', minOrder: 'Minimum order', servesU: 'guests', again: 'New order', mycode: 'Your order code', wa: 'Send via WhatsApp', invalidCoupon: 'Invalid coupon' }
+};
+const t = k => (T[LANG] && T[LANG][k]) || T.es[k] || k;
+
+async function init() {
+  CFG = DEMO_CFG;
+  document.title = CFG.name + ' — Catering';
+  document.getElementById('b-name').textContent = CFG.name + ' · Catering';
+  document.getElementById('b-tag').textContent = CFG.tagline || '';
+  const th = CFG.theme || {};
+  const root = document.documentElement.style;
+  if (th.primary) root.setProperty('--pri', th.primary);
+  if (th.accent) root.setProperty('--acc', th.accent);
+  if (th.dark) root.setProperty('--dark', th.dark);
+  document.getElementById('langbtn').textContent = LANG === 'es' ? 'EN' : 'ES';
+  document.getElementById('langbtn').onclick = () => { LANG = LANG === 'es' ? 'en' : 'es'; localStorage.setItem('cb-lang', LANG); location.reload(); };
+  // fecha mínima: hoy + anticipación mínima
+  const d = new Date(); d.setDate(d.getDate() + 1);
+  S.date = d.toISOString().slice(0, 10);
+  render();
+}
+function money(n) { return '$' + Number(n).toFixed(2); }
+
+function render() {
+  const dots = t('steps').map((s, i) =>
+    `<div class="step-dot ${i === S.step ? 'on' : ''} ${i < S.step ? 'done' : ''}">${i + 1}. ${s}</div>`).join('');
+  document.getElementById('steps').innerHTML = dots;
+  [p0, p1, p2, p3, p4][S.step]();
+  renderSummary();
+}
+
+function nav(btns) {
+  return `<div class="row" style="margin-top:16px;justify-content:space-between">
+    <button class="btn ghost" onclick="S.step--;render()" ${S.step === 0 ? 'disabled' : ''}>← ${t('back')}</button>
+    <span>${btns}</span></div>`;
+}
+
+// ---- Paso 0: personas ----
+function p0() {
+  document.getElementById('pane').innerHTML = `<div class="card">
+    <h2>${t('people')}</h2><p class="sub">${t('peopleSub')}</p>
+    <div class="qty" style="margin:14px 0">
+      <button onclick="S.headcount=Math.max(5,S.headcount-5);render()">−</button>
+      <b style="font-size:26px;min-width:60px">${S.headcount}</b>
+      <button onclick="S.headcount=Math.min(500,S.headcount+5);render()">+</button>
+      <span style="color:#777">${t('servesU')}</span>
+    </div>
+    <input type="range" min="5" max="200" value="${S.headcount}" oninput="S.headcount=+this.value;render()">
+    <h3>${t('usual')}</h3>
+    <div class="row"><input id="u-email" placeholder="${t('usualPh')}" style="max-width:260px">
+    <button class="btn sec" onclick="loadUsual()">${t('usualBtn')}</button></div>
+    <div id="usual-msg" style="margin-top:8px;font-size:14px"></div>
+    ${nav(`<button class="btn" onclick="S.step++;render()">${t('next')} →</button>`)}
+  </div>`;
+}
+async function loadUsual() {
+  const email = document.getElementById('u-email').value.trim();
+  if (!email) return;
+  const mine = _orders.filter(o => o.customer.email.toLowerCase() === email.toLowerCase()).slice(-1)[0];
+  const msg = document.getElementById('usual-msg');
+  if (!mine) { msg.textContent = '—'; return; }
+  const r = { usual: { name: mine.customer.name, items: mine.items } };
+  S.usual = r.usual; S.customer.email = email; S.customer.name = r.usual.name || '';
+  // reconstruir selección desde las líneas guardadas
+  r.usual.items.forEach(ln => {
+    if (ln.kind === 'item') {
+      const m = CFG.menu.find(x => x.name === ln.name);
+      if (m) { const sz = (m.sizes || []).find(s => s.label === ln.size) || m.sizes[0]; S.items[m.id + '|' + sz.id] = { menuId: m.id, sizeId: sz.id, qty: ln.qty }; }
+    } else if (ln.kind === 'package') {
+      const p = CFG.packages.find(x => x.name === ln.name);
+      if (p) S.packages[p.id] = { packageId: p.id, people: ln.people };
+    }
+  });
+  msg.innerHTML = '✓ ' + (LANG === 'es' ? 'Pedido recuperado. Revísalo en el siguiente paso.' : 'Usual order restored. Review it in the next step.');
+}
+
+// ---- Paso 1: armar ----
+function p1() {
+  const pkgs = (CFG.packages || []).map(p => {
+    const sel = S.packages[p.id];
+    return `<div class="pkg ${sel ? 'sel' : ''}">
+      <h4>${p.name} <span class="pp">${money(p.perPerson)}${t('perPerson')}</span></h4>
+      <div class="sub">${p.desc || ''} · ${t('min')} ${p.minPeople || 1}</div>
+      <div class="sub">${(p.includes || []).join(' · ')}</div>
+      <div class="qty"><button onclick="pkgQty('${p.id}',-5)">−</button><b>${sel ? sel.people : 0}</b>
+      <button onclick="pkgQty('${p.id}',5)">+</button><span style="font-size:13px;color:#777">${t('servesU')}</span></div>
+    </div>`;
+  }).join('');
+  const cats = {};
+  (CFG.menu || []).forEach(m => { (cats[m.category || 'Menú'] = cats[m.category || 'Menú'] || []).push(m); });
+  const menuHtml = Object.entries(cats).map(([cat, items]) =>
+    `<div class="cat">${cat}</div>` + items.map(m => {
+      const opts = (m.sizes || []).map(s => {
+        const key = m.id + '|' + s.id, cur = S.items[key];
+        return `<div class="row" style="justify-content:space-between;border-top:1px dashed #eee;padding:8px 0">
+          <div><b>${s.label}</b> <span style="color:#777;font-size:13px">· ${t('feeds')} ${s.feeds}</span><br><b style="color:var(--pri)">${money(s.price)}</b></div>
+          <div class="qty"><button onclick="itemQty('${m.id}','${s.id}',-1)">−</button><b>${cur ? cur.qty : 0}</b><button onclick="itemQty('${m.id}','${s.id}',1)">+</button></div>
+        </div>`;
+      }).join('');
+      return `<div class="mi"><h4>${m.name}</h4><div class="desc">${m.desc || ''}</div>${opts}</div>`;
+    }).join('')).join('');
+  document.getElementById('pane').innerHTML = `<div class="card">
+    <h2>${t('build')}</h2><p class="sub">${t('people')}: <b>${S.headcount}</b></p>
+    <div id="meterbox"></div>
+    <h3>${t('pkgs')}</h3>${pkgs || '<p class="sub">—</p>'}
+    <h3>${t('alacarte')}</h3>${menuHtml}
+    ${nav(`<button class="btn" onclick="S.step++;render()">${t('next')} →</button>`)}
+  </div>`;
+  updateMeter();
+}
+function pkgQty(id, d) {
+  const p = CFG.packages.find(x => x.id === id);
+  const cur = (S.packages[id] && S.packages[id].people) || 0;
+  const n = Math.max(0, cur + d);
+  if (n === 0) delete S.packages[id];
+  else S.packages[id] = { packageId: id, people: Math.max(p.minPeople || 1, n) };
+  render();
+}
+function itemQty(menuId, sizeId, d) {
+  const key = menuId + '|' + sizeId;
+  const cur = (S.items[key] && S.items[key].qty) || 0;
+  const n = Math.max(0, Math.min(99, cur + d));
+  if (n === 0) delete S.items[key]; else S.items[key] = { menuId, sizeId, qty: n };
+  render();
+}
+async function calc() {
+  const body = { items: Object.values(S.items), packages: Object.values(S.packages), fulfillment: S.fulfillment, people: S.headcount, couponCode: S.coupon };
+  return demoPrice(body);
+}
+let lastCalc = null;
+async function updateMeter() {
+  const box = document.getElementById('meterbox');
+  if (!box) return;
+  try {
+    const c = await calc();
+    lastCalc = c.error ? null : c;
+    if (c.error) { box.innerHTML = ''; return; }
+    const pct = Math.min(100, Math.round((c.feedsMax + c.totalPeople) / S.headcount * 100));
+    const ok = (c.feedsMax + c.totalPeople) >= S.headcount;
+    const diff = (c.feedsMax + c.totalPeople) - S.headcount;
+    const msg = diff === 0 || Math.abs(diff) <= 2 ? t('justRight') : diff < 0 ? `${t('serves')} ${c.feedsMax + c.totalPeople} ${t('of')} ${S.headcount} ${t('need')}` : `${t('serves')} ${c.feedsMax + c.totalPeople} ${t('of')} ${S.headcount} ${t('over')}`;
+    box.innerHTML = `<div class="alert" style="background:#f6f6f6;border-color:#e0e0e0"><b>${msg}</b><div class="meter ${ok ? 'ok' : ''}"><i style="width:${pct}%"></i></div></div>`;
+  } catch (e) { /* noop */ }
+}
+
+// ---- Paso 2: entrega ----
+function p2() {
+  const f = CFG.fulfillment || {};
+  const tiers = ['pickup', 'delivery', 'setup'].filter(k => f[k] && f[k].enabled).map(k => {
+    const fee = k === 'pickup' ? t('free') : (k === 'delivery' && f[k].freeOver ? `${money(f[k].fee)} (${t('free')} +$${f[k].freeOver})` : money(f[k].fee || 0));
+    return `<div class="tier ${S.fulfillment === k ? 'sel' : ''}" onclick="S.fulfillment='${k}';render()">
+      <h4>${f[k].label || k}</h4><div class="fee">${fee}</div>
+      <div class="sub">${f[k].desc || ''}</div></div>`;
+  }).join('');
+  const wins = ((f[S.fulfillment] || {}).windows || []).map(w =>
+    `<option value="${w}" ${S.window === w ? 'selected' : ''}>${w}</option>`).join('');
+  document.getElementById('pane').innerHTML = `<div class="card">
+    <h2>${t('delivery')}</h2>
+    ${tiers}
+    <div class="grid2">
+      <div><label class="fl">${t('ddate')}</label><input type="date" id="f-date" value="${S.date}" min="${new Date().toISOString().slice(0, 10)}"></div>
+      <div><label class="fl">${t('dwin')}</label><select id="f-win">${wins}</select></div>
+    </div>
+    <div id="addrbox" class="${S.fulfillment === 'delivery' || S.fulfillment === 'setup' ? '' : 'hide'}">
+      <label class="fl">${t('addr')}</label><input id="f-addr" value="${S.address}" placeholder="Calle, ciudad, código postal">
+    </div>
+    ${nav(`<button class="btn" onclick="saveDelivery()">${t('next')} →</button>`)}
+  </div>`;
+}
+function saveDelivery() {
+  S.date = document.getElementById('f-date').value;
+  S.window = document.getElementById('f-win').value;
+  S.address = (document.getElementById('f-addr') || {}).value || '';
+  const [y, m, d] = S.date.split('-');
+  S.dateFmt = `${d}/${m}/${y}`;
+  S.step++; render();
+}
+
+// ---- Paso 3: datos ----
+function p3() {
+  document.getElementById('pane').innerHTML = `<div class="card">
+    <h2>${t('yourData')}</h2>
+    <div class="grid2">
+      <div><label class="fl">${t('name')} *</label><input id="c-name" value="${S.customer.name}"></div>
+      <div><label class="fl">${t('phone')} *</label><input id="c-phone" value="${S.customer.phone}" placeholder="(813) 555-0100"></div>
+    </div>
+    <label class="fl">${t('email')} *</label><input id="c-email" type="email" value="${S.customer.email}">
+    <label style="display:flex;gap:8px;align-items:center;margin-top:12px;font-size:14px">
+      <input type="checkbox" id="c-corp" style="width:auto" ${S.corp ? 'checked' : ''} onchange="S.corp=this.checked;render()"> ${t('corp')}</label>
+    <div id="corpbox" class="${S.corp ? '' : 'hide'}">
+      <div class="grid2">
+        <div><label class="fl">${t('company')}</label><input id="c-company" value="${S.company}"></div>
+        <div><label class="fl">${t('po')}</label><input id="c-po" value="${S.po}"></div>
+      </div>
+    </div>
+    <label class="fl">${t('notes')}</label><textarea id="c-notes" rows="2">${S.notes}</textarea>
+    ${nav(`<button class="btn" onclick="saveCustomer()">${t('next')} →</button>`)}
+  </div>`;
+}
+function saveCustomer() {
+  S.customer = { name: document.getElementById('c-name').value.trim(), email: document.getElementById('c-email').value.trim(), phone: document.getElementById('c-phone').value.trim() };
+  S.company = (document.getElementById('c-company') || {}).value || '';
+  S.po = (document.getElementById('c-po') || {}).value || '';
+  S.notes = document.getElementById('c-notes').value.trim();
+  if (!S.customer.name || !S.customer.email || !S.customer.phone) { alert('—'); return; }
+  S.step++; render();
+}
+
+// ---- Paso 4: pago ----
+async function p4() {
+  document.getElementById('pane').innerHTML = `<div class="card"><h2>${t('pay')}</h2><div id="paybox">…</div></div>`;
+  const box = document.getElementById('paybox');
+  const c = await calc();
+  if (c.error && c.error !== 'needs_quote') { box.innerHTML = `<div class="alert">${c.error}</div>` + nav(''); return; }
+  if (c.needsQuote) {
+    box.innerHTML = `<div class="alert"><b>${t('quote')}</b></div>
+      <label class="fl">${t('notes')}</label><textarea id="q-notes" rows="3"></textarea>
+      ${nav(`<button class="btn" onclick="sendQuote()">${t('quoteBtn')}</button>`)}`;
+    return;
+  }
+  lastCalc = c;
+  const methods = (CFG.payments || []).map(m =>
+    `<label style="display:flex;gap:8px;align-items:center;border:1.5px solid #eee;border-radius:10px;padding:10px;margin-bottom:8px;cursor:pointer">
+    <input type="radio" name="paym" value="${m.id}" style="width:auto" ${S.payment === m.id ? 'checked' : ''} onchange="S.payment=this.value;renderSummary()"> ${m.label}</label>`).join('');
+  const lines = c.lines.map(l =>
+    `<tr><td>${l.qty ? l.qty + '× ' : ''}${l.name}${l.size ? ' (' + l.size + ')' : ''}${l.people ? ' × ' + l.people + ' ' + t('servesU') : ''}</td><td style="text-align:right">${money(l.total)}</td></tr>`).join('');
+  box.innerHTML = `
+    <table>${lines}</table>
+    <div class="coupon"><input id="coupon-in" placeholder="${t('couponPh')}" value="${S.coupon}" style="max-width:180px">
+    <button class="btn sec" onclick="applyCoupon()">${t('apply')}</button></div>
+    <div id="coupon-msg" style="font-size:13px;color:#2e7d32;margin-top:4px">${c.coupon ? '✓ ' + c.coupon.label + ' (−' + money(c.discount) + ')' : ''}</div>
+    <h3>${t('pay')}</h3>${methods}
+    ${c.deposit && c.deposit.type !== 'none' ? `<div class="alert">💰 ${t('depositNote')}: <b>${money(c.depositDue)}</b> ${t('of')} ${money(c.total)}</div>` : ''}
+    ${nav(`<button class="btn" onclick="placeOrder()">${t('payBtn')} — ${money(c.depositDue)}</button>`)}`;
+  renderSummary();
+}
+async function applyCoupon() {
+  S.coupon = document.getElementById('coupon-in').value.trim();
+  const c = await calc();
+  if (c.error) { document.getElementById('coupon-msg').innerHTML = `<span style="color:#b5342a">${t('invalidCoupon')}</span>`; S.coupon = ''; return; }
+  p4();
+}
+async function sendQuote() {
+  const code = 'Q-' + Math.random().toString(36).slice(2, 8).toUpperCase();
+  document.getElementById('pane').innerHTML = `<div class="card"><div class="okmsg"><h2>${t('quoteOk')}</h2><div class="code">${code}</div>
+    <button class="btn ghost" onclick="location.reload()">${t('again')}</button></div></div>`;
+}
+async function placeOrder() {
+  const c = await calc();
+  if (c.error) { alert(c.error); return; }
+  const o = { code: 'CT-' + Math.random().toString(36).slice(2, 8).toUpperCase(),
+    items: c.lines, total: c.total, serviceDate: S.dateFmt, timeWindow: S.window,
+    customer: S.customer, company: S.company };
+  _orders.push(o); localStorage.setItem('demo-orders', JSON.stringify(_orders));
+  const waText = encodeURIComponent(`Hola ${CFG.name}, hice el pedido ${o.code} por ${money(o.total)}. ${o.serviceDate} ${o.timeWindow || ''}`);
+  document.getElementById('pane').innerHTML = `<div class="card"><div class="okmsg">
+    <h2>${t('confirmTitle')}</h2><p class="sub">${t('confirmSub')}</p>
+    <div>${t('mycode')}</div><div class="code">${o.code}</div>
+    <div style="font-size:15px;margin-bottom:14px"><b>${money(o.total)}</b> · ${o.serviceDate} ${o.timeWindow || ''}</div>
+    <a class="wa" href="https://wa.me/${CFG.whatsapp}?text=${waText}" target="_blank">${t('wa')}</a>
+    <div style="margin-top:12px"><button class="btn ghost" onclick="location.reload()">${t('again')}</button></div>
+  </div></div>`;
+  document.getElementById('sumbox').innerHTML = '';
+}
+
+// ---- Resumen lateral ----
+async function renderSummary() {
+  const box = document.getElementById('sumbox');
+  try {
+    const c = await calc();
+    if (c.error) { box.innerHTML = `<h3>${CFG.name}</h3><p style="color:#ccc;font-size:13px">…</p>`; return; }
+    box.innerHTML = `<h3>${t('total')}</h3>
+      ${c.lines.map(l => `<div class="ln"><span>${l.qty ? l.qty + '× ' : ''}${l.name}${l.people ? ' ×' + l.people : ''}</span><span>${money(l.total)}</span></div>`).join('')}
+      ${c.discount ? `<div class="ln" style="color:#9ccc9c"><span>✓ ${c.coupon.label}</span><span>−${money(c.discount)}</span></div>` : ''}
+      <div class="ln"><span>${(CFG.fulfillment[c.fulfillment] || {}).label || ''}</span><span>${c.fulfillmentFee ? money(c.fulfillmentFee) : t('free')}</span></div>
+      <div class="tot"><span>${t('total')}</span><span>${money(c.total)}</span></div>
+      ${c.deposit && c.deposit.type !== 'none' ? `<div class="dep">💰 ${t('depositNote')}: ${money(c.depositDue)}</div>` : ''}`;
+  } catch (e) { /* noop */ }
+}
+
+init();
+</script>
+</body>
+</html>

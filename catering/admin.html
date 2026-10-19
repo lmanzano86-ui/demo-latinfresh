@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin Catering</title>
+<style>
+*{box-sizing:border-box}body{font-family:system-ui,Arial,sans-serif;margin:0;background:#f4f4f4;color:#222}
+header{background:#24211c;color:#fff;padding:14px 20px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+header h1{margin:0;font-size:18px;flex:1}
+.tabs{display:flex;gap:6px;padding:12px 16px;flex-wrap:wrap;background:#fff;border-bottom:1px solid #ddd}
+.tabs button{border:1px solid #ddd;background:#fff;border-radius:20px;padding:8px 16px;cursor:pointer;font-size:14px}
+.tabs button.on{background:#24211c;color:#fff;border-color:#24211c}
+.wrap{max-width:1100px;margin:0 auto;padding:16px}
+.card{background:#fff;border-radius:12px;padding:16px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}th,td{padding:9px 8px;border-bottom:1px solid #eee;text-align:left;vertical-align:top}
+th{font-size:11px;text-transform:uppercase;color:#888}
+.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:12px;font-weight:700}
+.nuevo{background:#fff3e0;color:#e65100}.confirmado{background:#e3f2fd;color:#1565c0}.preparacion{background:#f3e5f5;color:#6a1b9a}
+.completado{background:#e8f5e9;color:#2e7d32}.cancelado{background:#ffebee;color:#c62828}.pendiente{background:#fff3e0;color:#e65100}
+select,input,textarea{padding:9px 10px;border:1.5px solid #ddd;border-radius:8px;font-size:14px}
+.btn{background:#b5342a;color:#fff;border:0;border-radius:8px;padding:10px 18px;font-weight:700;cursor:pointer}
+.btn.sec{background:#fff;color:#222;border:1.5px solid #999}
+.hide{display:none}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.big{font-size:30px;font-weight:800;color:#2e7d32}
+@media print{header,.tabs,.noprint{display:none}.wrap{max-width:100%}}
+</style>
+</head>
+<body>
+<header><h1 id="t">Admin Catering</h1><span id="counts" style="font-size:13px;color:#bdbdbd"></span><span style="background:#e8a13a;color:#24211c;font-size:11px;font-weight:800;padding:4px 10px;border-radius:12px">DEMO</span></header>
+<div class="tabs" id="tabs"></div>
+<div class="wrap" id="pane"></div>
+<script>
+const DEMO_MENU = [{"category": "Bandejas calientes", "desc": "Nuestra famosa ropa vieja, cocinada lento por 6 horas", "id": "ropa-vieja", "name": "Ropa vieja", "sizes": [{"feeds": "8-10", "id": "half", "label": "Media bandeja", "price": 65}, {"feeds": "18-20", "id": "full", "label": "Bandeja completa", "price": 120}]}, {"category": "Bandejas calientes", "desc": "Pierna de cerdo marinada en mojo criollo", "id": "lechon", "name": "Lechón asado", "sizes": [{"feeds": "8-10", "id": "half", "label": "Media bandeja", "price": 70}, {"feeds": "18-20", "id": "full", "label": "Bandeja completa", "price": 130}]}, {"category": "Acompañamientos", "desc": "Arroz con frijoles negros, el clásico", "id": "con gri", "name": "Arroz congrí", "sizes": [{"feeds": "10-12", "id": "half", "label": "Media bandeja", "price": 35}, {"feeds": "22-25", "id": "full", "label": "Bandeja completa", "price": 60}]}, {"category": "Frituras", "desc": "Por docenas, recién hechas", "id": "croquetas", "name": "Croquetas de jamón", "sizes": [{"feeds": "6-8", "id": "dz", "label": "Docena", "price": 14}, {"feeds": "24-30", "id": "4dz", "label": "4 docenas", "price": 48}]}, {"category": "Frituras", "desc": "Carne, pollo o queso", "id": "empanadas", "name": "Empanadas", "sizes": [{"feeds": "6-8", "id": "dz", "label": "Docena", "price": 22}, {"feeds": "24-30", "id": "4dz", "label": "4 docenas", "price": 78}]}, {"category": "Postres", "desc": "Entero, para compartir", "id": "flan", "name": "Flan cubano", "sizes": [{"feeds": "10-12", "id": "uno", "label": "1 flan entero", "price": 28}]}];
+const SAMPLE = {
+orders: [
+ {id:'a1', code:'CT-9F3K2P', serviceDate:'24/10/2026', timeWindow:'11:00-13:00', customer:{name:'María González', email:'maria@oficinax.com', phone:'(813) 555-0142'}, company:'Oficina X', poNumber:'PO-8821',
+  items:[{qty:1,name:'Ropa vieja',size:'Bandeja completa'},{people:25,name:'Almuerzo cubano'}], total:493.75, fulfillment:'delivery', coupon:{code:'DIRECTO10'}, source:'web', status:'nuevo'},
+ {id:'a2', code:'CT-7H1QWE', serviceDate:'24/10/2026', timeWindow:'09:00-11:00', customer:{name:'James Carter', email:'james@techcorp.com', phone:'(813) 555-0198'}, company:'TechCorp', poNumber:'',
+  items:[{people:15,name:'Desayuno latino'}], total:149.25, fulfillment:'pickup', source:'web-reorden', status:'confirmado'},
+ {id:'a3', code:'CT-4M8ZXC', serviceDate:'25/10/2026', timeWindow:'13:00-15:00', customer:{name:'Ana Ruiz', email:'ana.ruiz@mail.com', phone:'(813) 555-0117'}, company:'', poNumber:'',
+  items:[{qty:2,name:'Lechón asado',size:'Media bandeja'},{qty:2,name:'Croquetas de jamón',size:'Docena'}], total:168.00, fulfillment:'setup', source:'web', status:'preparacion'}
+],
+quotes: [
+ {id:'Q-54A1C0', serviceDate:'15/11/2026', customer:{name:'Roberto Díaz', email:'rdiaz@eventos.com', phone:'(813) 555-0133'}, company:'Eventos Díaz', people:80, notes:'Boda, 80 personas, montaje completo', status:'pendiente'}
+],
+customers: [
+ {name:'María González', email:'maria@oficinax.com', phone:'(813) 555-0142', company:'Oficina X', orderCount:4, lastOrderAt:'2026-10-19'},
+ {name:'James Carter', email:'james@techcorp.com', phone:'(813) 555-0198', company:'TechCorp', orderCount:7, lastOrderAt:'2026-10-18'},
+ {name:'Ana Ruiz', email:'ana.ruiz@mail.com', phone:'(813) 555-0117', company:'', orderCount:1, lastOrderAt:'2026-10-17'}
+],
+menu: DEMO_MENU
+};
+const DEMO_CFG_MIN = {name:'Latin Fresh Market'};
+
+const slug = 'latin-fresh';
+const token = new URLSearchParams(location.search).get('token') || 'catering-admin-demo';
+const H = { 'x-admin-token': token };
+const TABNAMES = ['🧾 Pedidos', '💬 Cotizaciones', '👨‍🍳 Cocina', '👥 Clientes', '📋 Menú', '💰 Ahorro'];
+let T = 0, CFG = null, DATA = { orders: [], quotes: [], customers: [], menu: [] };
+
+async function api(p, opt = {}) {
+  const m = p.match(/^\/(orders|quotes|customers|menu)(\/.*)?$/);
+  const key = m ? m[1] : null;
+  if (opt.method === 'PUT' && key === 'menu') { SAMPLE.menu = JSON.parse(opt.body).menu; return { menu: SAMPLE.menu }; }
+  if (opt.method === 'PUT' && key === 'orders') { const o = SAMPLE.orders.find(x => x.id === m[2].slice(1)); Object.assign(o, JSON.parse(opt.body)); return { order: o }; }
+  if (opt.method === 'PUT' && key === 'quotes') { const q = SAMPLE.quotes.find(x => x.id === m[2].slice(1)); Object.assign(q, JSON.parse(opt.body)); return { quote: q }; }
+  return { [key]: SAMPLE[key] || [] };
+}
+async function init() {
+  CFG = DEMO_CFG_MIN;
+  document.getElementById('t').textContent = CFG.name + ' · Admin Catering (demo)';
+  document.getElementById('tabs').innerHTML = TABNAMES.map((n, i) =>
+    `<button class="${i === T ? 'on' : ''}" onclick="T=${i};render()">${n}</button>`).join('');
+  await reload();
+}
+async function reload() {
+  DATA.orders = (await api('/orders')).orders || [];
+  DATA.quotes = (await api('/quotes')).quotes || [];
+  DATA.customers = (await api('/customers')).customers || [];
+  DATA.menu = (await api('/menu')).menu || [];
+  const nuevos = DATA.orders.filter(o => o.status === 'nuevo').length;
+  const qc = DATA.quotes.filter(q => q.status === 'pendiente').length;
+  document.getElementById('counts').textContent = `${nuevos} pedidos nuevos · ${qc} cotizaciones pendientes`;
+  render();
+}
+const money = n => '$' + Number(n || 0).toFixed(2);
+const badge = s => `<span class="badge ${s}">${s}</span>`;
+
+function render() {
+  document.getElementById('tabs').innerHTML = TABNAMES.map((n, i) =>
+    `<button class="${i === T ? 'on' : ''}" onclick="T=${i};render()">${n}</button>`).join('');
+  [tabOrders, tabQuotes, tabKitchen, tabCustomers, tabMenu, tabSavings][T]();
+}
+
+// ---- Pedidos ----
+function tabOrders() {
+  const rows = DATA.orders.map(o => `<tr>
+    <td><b>${o.code}</b><br><span style="color:#888">${o.serviceDate} ${o.timeWindow || ''}</span></td>
+    <td>${o.customer.name}<br><span style="color:#888">${o.customer.phone}</span>${o.company ? `<br><b>${o.company}</b>${o.poNumber ? ' · PO ' + o.poNumber : ''}` : ''}</td>
+    <td>${(o.items || []).map(l => `${l.qty ? l.qty + '× ' : ''}${l.name}${l.size ? ' (' + l.size + ')' : ''}${l.people ? ' ×' + l.people : ''}`).join('<br>')}</td>
+    <td><b>${money(o.total)}</b><br><span style="color:#888">${o.fulfillment}${o.coupon ? ' · 🎟️' + o.coupon.code : ''}${o.source && o.source !== 'web' ? ' · ' + o.source : ''}</span></td>
+    <td>${badge(o.status)}<br><select onchange="setStatus('${o.id}',this.value)" style="margin-top:6px">
+      ${['nuevo', 'confirmado', 'preparacion', 'completado', 'cancelado'].map(s => `<option value="${s}" ${o.status === s ? 'selected' : ''}>${s}</option>`).join('')}
+    </select></td>
+  </tr>`).join('');
+  document.getElementById('pane').innerHTML = `<div class="card">
+    <h3>Pedidos (${DATA.orders.length})</h3>
+    <div style="overflow-x:auto"><table><tr><th>Código/Fecha</th><th>Cliente</th><th>Pedido</th><th>Total</th><th>Estado</th></tr>${rows || '<tr><td colspan=5>Sin pedidos</td></tr>'}</table></div></div>`;
+}
+async function setStatus(id, status) {
+  await api('/orders/' + id, { method: 'PUT', headers: { ...H, 'Content-Type': 'application/json' }, body: JSON.stringify({ status }) });
+  await reload();
+}
+
+// ---- Cotizaciones ----
+function tabQuotes() {
+  const rows = DATA.quotes.map(q => `<tr>
+    <td><b>${q.id}</b><br><span style="color:#888">${q.serviceDate || ''}</span></td>
+    <td>${q.customer.name}<br><span style="color:#888">${q.customer.email} · ${q.customer.phone || ''}</span>${q.company ? `<br><b>${q.company}</b>` : ''}</td>
+    <td>${q.people || ''} personas<br><span style="color:#888">${(q.notes || '').slice(0, 80)}</span></td>
+    <td>${badge(q.status)}<br><select onchange="setQStatus('${q.id}',this.value)" style="margin-top:6px">
+      ${['pendiente', 'enviada', 'aceptada', 'rechazada'].map(s => `<option value="${s}" ${q.status === s ? 'selected' : ''}>${s}</option>`).join('')}
+    </select></td>
+  </tr>`).join('');
+  document.getElementById('pane').innerHTML = `<div class="card"><h3>Cotizaciones (${DATA.quotes.length})</h3>
+    <div style="overflow-x:auto"><table><tr><th>ID/Fecha</th><th>Cliente</th><th>Detalle</th><th>Estado</th></tr>${rows || '<tr><td colspan=4>Sin cotizaciones</td></tr>'}</table></div></div>`;
+}
+async function setQStatus(id, status) {
+  await api('/quotes/' + id, { method: 'PUT', headers: { ...H, 'Content-Type': 'application/json' }, body: JSON.stringify({ status }) });
+  await reload();
+}
+
+// ---- Cocina: hoja de preparación por fecha ----
+function tabKitchen() {
+  const dates = [...new Set(DATA.orders.filter(o => o.status !== 'cancelado').map(o => o.serviceDate))].sort();
+  const sel = document.getElementById('kdate') ? document.getElementById('kdate').value : dates[0];
+  const orders = DATA.orders.filter(o => o.serviceDate === sel && o.status !== 'cancelado');
+  const agg = {};
+  orders.forEach(o => (o.items || []).forEach(l => {
+    const key = l.name + (l.size ? '|' + l.size : '');
+    agg[key] = agg[key] || { name: l.name, size: l.size || '', qty: 0, people: 0 };
+    agg[key].qty += l.qty || 0; agg[key].people += l.people || 0;
+  }));
+  const rows = Object.values(agg).map(a => `<tr><td><b>${a.name}</b>${a.size ? ' (' + a.size + ')' : ''}</td><td>${a.qty || '—'}</td><td>${a.people || '—'}</td></tr>`).join('');
+  const orderRows = orders.map(o => `<tr><td><b>${o.code}</b> · ${o.timeWindow || ''}</td><td>${o.customer.name}${o.company ? ' (' + o.company + ')' : ''}</td><td>${badge(o.status)}</td></tr>`).join('');
+  document.getElementById('pane').innerHTML = `<div class="card">
+    <h3>👨‍🍳 Hoja de cocina</h3>
+    <div class="row noprint" style="display:flex;gap:10px;margin-bottom:12px">
+      <select id="kdate" onchange="render()">${dates.map(d => `<option ${d === sel ? 'selected' : ''}>${d}</option>`).join('')}</select>
+      <button class="btn sec" onclick="window.print()">🖨️ Imprimir</button>
+    </div>
+    <h4>Qué preparar — ${sel || '—'}</h4>
+    <table><tr><th>Platillo</th><th>Cantidad</th><th>Personas</th></tr>${rows || '<tr><td colspan=3>—</td></tr>'}</table>
+    <h4 style="margin-top:16px">Pedidos del día (${orders.length})</h4>
+    <table><tr><th>Código</th><th>Cliente</th><th>Estado</th></tr>${orderRows}</table></div>`;
+}
+
+// ---- Clientes ----
+function tabCustomers() {
+  const rows = DATA.customers.map(c => `<tr><td><b>${c.name}</b><br><span style="color:#888">${c.email}<br>${c.phone}</span></td>
+    <td>${c.company || '—'}</td><td>${c.orderCount}</td><td>${(c.lastOrderAt || '').slice(0, 10)}</td></tr>`).join('');
+  document.getElementById('pane').innerHTML = `<div class="card"><h3>👥 Clientes (${DATA.customers.length})</h3>
+    <p style="color:#666;font-size:13px">Base propia para recompra: navidad, fin de año, graduaciones. Exporte y úsela en su marketing.</p>
+    <table><tr><th>Cliente</th><th>Empresa</th><th>Pedidos</th><th>Último</th></tr>${rows || '<tr><td colspan=4>—</td></tr>'}</table></div>`;
+}
+
+// ---- Menú (editor simple) ----
+function tabMenu() {
+  const rows = DATA.menu.map((m, i) => `<tr><td><b>${m.name}</b><br><span style="color:#888">${m.category || ''} · ${m.desc || ''}</span></td>
+    <td>${(m.sizes || []).map(s => `${s.label}: ${money(s.price)} (${s.feeds})`).join('<br>')}</td>
+    <td><button class="btn sec" onclick="delItem(${i})">✕</button></td></tr>`).join('');
+  document.getElementById('pane').innerHTML = `<div class="card"><h3>📋 Menú</h3>
+    <table><tr><th>Platillo</th><th>Tamaños</th><th></th></tr>${rows}</table>
+    <h4>Agregar platillo</h4>
+    <div class="grid2">
+      <input id="m-name" placeholder="Nombre"><input id="m-cat" placeholder="Categoría">
+      <input id="m-desc" placeholder="Descripción"><input id="m-sizes" placeholder="Tamaños: Media bandeja|65|8-10 ; Completa|120|18-20">
+    </div>
+    <p style="color:#888;font-size:12px">Formato de tamaños: <i>Etiqueta|precio|rinde</i> separados por <b>;</b></p>
+    <button class="btn" onclick="addItem()">Agregar</button></div>`;
+}
+async function saveMenu(menu) {
+  await api('/menu', { method: 'PUT', headers: { ...H, 'Content-Type': 'application/json' }, body: JSON.stringify({ menu }) });
+  await reload();
+}
+async function addItem() {
+  const sizes = document.getElementById('m-sizes').value.split(';').map(p => {
+    const [label, price, feeds] = p.split('|').map(x => (x || '').trim());
+    return { id: label.toLowerCase().replace(/\s+/g, '-'), label, price: +price || 0, feeds: feeds || '' };
+  }).filter(s => s.label);
+  DATA.menu.push({ id: 'm' + Date.now(), name: document.getElementById('m-name').value, category: document.getElementById('m-cat').value, desc: document.getElementById('m-desc').value, sizes });
+  await saveMenu(DATA.menu);
+}
+async function delItem(i) { DATA.menu.splice(i, 1); await saveMenu(DATA.menu); }
+
+// ---- Ahorro: calculadora vs marketplace ----
+function tabSavings() {
+  const v = window._sv || { sales: 5000, pct: 50 };
+  const ezFee = v.sales * 0.18;
+  const direct = v.sales * (v.pct / 100);
+  const ownCost = 49 + direct * 0.03;
+  const save = ezFee - (v.sales * (1 - v.pct / 100) * 0.18 + ownCost);
+  document.getElementById('pane').innerHTML = `<div class="card"><h3>💰 Calculadora de ahorro vs marketplace</h3>
+    <p style="color:#666;font-size:14px">Muéstrele al dueño, con sus números, cuánto pierde en comisiones.</p>
+    <div class="grid2">
+      <div><label>Ventas mensuales de catering ($)</label><input id="sv-sales" type="number" value="${v.sales}" oninput="updSv()"></div>
+      <div><label>% que movería a pedidos directos</label><input id="sv-pct" type="number" value="${v.pct}" oninput="updSv()"></div>
+    </div>
+    <div class="card" style="background:#faf5ec;margin-top:14px">
+      <div>Hoy en comisiones (~18%): <b style="color:#c62828">${money(ezFee)}/mes</b></div>
+      <div>Con sistema propio ($49 + ~3%): <b>${money(v.sales * (1 - v.pct / 100) * 0.18 + ownCost)}/mes</b></div>
+      <div style="margin-top:8px">Ahorro: <span class="big">${money(save)}/mes</span> = <b>${money(save * 12)}/año</b></div>
+    </div></div>`;
+}
+function updSv() {
+  window._sv = { sales: +document.getElementById('sv-sales').value || 0, pct: +document.getElementById('sv-pct').value || 0 };
+  tabSavings();
+}
+
+init();
+</script>
+</body>
+</html>
